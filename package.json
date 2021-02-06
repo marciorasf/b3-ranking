@@ -5,8 +5,10 @@
   "license": "MIT",
   "scripts": {
     "watch": "tsc -w",
+    "dev:resources": "docker-compose up",
     "dev": "nodemon dist/index",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "lint": "yarn eslint src/ --fix"
   },
   "devDependencies": {
     "@types/connect-redis": "^0.0.15",
@@ -22,6 +24,7 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-import-helpers": "^1.1.0",
     "eslint-plugin-prettier": "^3.1.4",
+    "husky": "^4.3.8",
     "nodemon": "^2.0.6",
     "prettier": "^2.2.0",
     "ts-node": "^9.0.0",
@@ -31,9 +34,11 @@
     "apollo-server-express": "^2.19.0",
     "argon2": "^0.27.0",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "graphql": "^15.4.0",
+    "mongoose": "^5.11.15",
     "type-graphql": "^1.1.1"
   }
 }
