@@ -47,5 +47,5 @@ export default async function importStocks() {
     importErrors,
   });
 
-   await newStocksImport.save();
+  await newStocksImport.save();
 }
