@@ -7,8 +7,8 @@
     "watch": "tsc -w",
     "build": "tsc",
     "dev:resources": "docker-compose up",
-    "dev": "nodemon dist/index",
-    "start": "node dist/index.js",
+    "dev": "nodemon dist/src/index",
+    "start": "node dist/src/index",
     "lint": "yarn eslint src/ --fix",
     "cli": "node dist/src/cli.js"
   },

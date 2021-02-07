@@ -9,32 +9,26 @@ The javascript `Date` as string. Type represents date and time as the ISO Date s
 scalar DateTime
 
 type Query {
-  lastStocksImport: StocksImportSchema
-}
-
-type Stock {
-  code: String!
-  indicatorsRanking: StockIndicators!
-  indicatorsValues: StockIndicators!
+  lastImport: StocksImport!
 }
 
 type StockIndicators {
-  cagr_lucro_5_anos: Float!
-  cagr_receita_5_anos: Float!
+  cagr_lucros_5_anos: Float!
+  cagr_receitas_5_anos: Float!
   divida_liquida_por_ebit: Float!
-  divida_liquida_por_ebtida: Float!
+  divida_liquida_por_ebitda: Float!
   divida_liquida_por_patrimonio_liquido: Float!
   dividend_yield: Float!
   enterprise_value_por_ebit: Float!
   enterprise_value_por_ebitda: Float!
   giro_ativos: Float!
-  liquidez_corrent: Float!
+  liquidez_corrente: Float!
   lucro_por_acao: Float!
   margem_bruta: Float!
   margem_ebit: Float!
-  margem_ebtida: Float!
+  margem_ebitda: Float!
   margem_liquida: Float!
-  passivo_por_ativos: Float!
+  passivos_por_ativos: Float!
   patrimonio_liquido_por_ativos: Float!
   peg_ratio: Float!
   preco_da_acao_por_ativo_circulante_liquido: Float!
@@ -44,18 +38,22 @@ type StockIndicators {
   preco_da_acao_por_ebitda: Float!
   preco_da_acao_por_lucro: Float!
   preco_da_acao_por_receita_liquida: Float!
-  preco_da_acao_por_valor_patriomial: Float!
+  preco_da_acao_por_valor_patrimonial: Float!
   roa: Float!
   roe: Float!
   roic: Float!
   valor_patrimonial_por_acao: Float!
 }
 
-type StocksImportSchema {
-  createdAt: DateTime!
+type StockWithRanking {
+  code: String!
+  indicatorsRanking: StockIndicators!
+  indicatorsValues: StockIndicators!
+}
+
+type StocksImport {
   date: DateTime!
   id: ID!
   importErrors: [String!]!
-  stocks: [Stock!]!
-  updatedAt: DateTime!
+  stocks: [StockWithRanking!]!
 }
