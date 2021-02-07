@@ -9,7 +9,8 @@ The javascript `Date` as string. Type represents date and time as the ISO Date s
 scalar DateTime
 
 type Query {
-  lastImport: StocksImport!
+  currentStocks: StocksImport!
+  stocksByRecommendedRanking: [StockWithRankingAndScore!]!
 }
 
 type StockIndicators {
@@ -49,6 +50,14 @@ type StockWithRanking {
   code: String!
   indicatorsRanking: StockIndicators!
   indicatorsValues: StockIndicators!
+}
+
+type StockWithRankingAndScore {
+  code: String!
+  indicatorsRanking: StockIndicators!
+  indicatorsValues: StockIndicators!
+  score: Float!
+  score_position: Float!
 }
 
 type StocksImport {

@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { Indicator } from "../types/stock-indicators";
 import StockWithRanking from "../types/stock-with-ranking";
-import StockWithRankingAndScore from "../types/stock-with-score";
+import StockWithRankingAndScore from "../types/stock-with-ranking-and-score";
 
 const weightsReducer = (accumulator: number, currentItem: any) =>
   accumulator + currentItem.weight;

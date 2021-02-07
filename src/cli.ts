@@ -7,7 +7,7 @@ import program from "commander";
 import packageJson from "../package.json";
 import getStocksWithDefaultRankingOptions from "./services/getStocksWithDefaultRankingOptions";
 import importStocks from "./services/importStocks";
-import StockWithRankingAndScore from "./types/stock-with-score";
+import StockWithRankingAndScore from "./types/stock-with-ranking-and-score";
 
 function showStocksTable(stocks: StockWithRankingAndScore[]) {
   const table = new Table({
