@@ -6,6 +6,10 @@ export default async function getStocksWithDefaultRankingOptions(
   filterSameEnterpriseStocks = false
 ) {
   const lastImport = await getLastImport();
+  if (!lastImport) {
+    return null;
+  }
+
   const stocksInOrder = calculateScoresAndSort(
     lastImport.stocks,
     [

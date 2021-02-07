@@ -1,13 +1,6 @@
-import { Document } from "mongoose";
+import { StocksImportModel } from "../entities/stocks-import";
+import StocksImport from "../types/stocks-import";
 
-import DailyImport from "../models/daily-import";
-
-export default async function getLastImport(): Promise<Document<any> | null> {
-  return DailyImport.findOne(
-    {},
-    {},
-    {
-      sort: { date: -1 },
-    }
-  );
+export default async function getLastImport(): Promise<StocksImport | null> {
+  return StocksImportModel.findOne();
 }

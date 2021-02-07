@@ -1,20 +1,34 @@
-const weightsReducer = (accumulator: any, currentItem: any) =>
+/* eslint-disable no-param-reassign */
+import Stock from "../types/stock";
+import { Indicator } from "../types/stock-indicators";
+import StockWithScore from "../types/stock-with-score";
+
+const weightsReducer = (accumulator: number, currentItem: any) =>
   accumulator + currentItem.weight;
 
-const scoresReducer = (accumulator: any, currentScore: any) =>
+const scoresReducer = (accumulator: number, currentScore: number) =>
   accumulator + currentScore;
 
+interface IndicatorAndWeight {
+  indicator: Indicator;
+  weight: number;
+}
+
+interface Options {
+  filterSameEnterpriseStocks?: boolean;
+}
+
 export default function calculateScoresAndSort(
-  stocks: any[],
-  indicatorsAndWeights: any[],
-  options: any
+  stocks: Stock[],
+  indicatorsAndWeights: IndicatorAndWeight[],
+  options: Options
 ) {
-  let stocksCopy = stocks.slice();
+  let stocksCopy = stocks.slice() as StockWithScore[];
   const weightsSum = indicatorsAndWeights.reduce(weightsReducer, 0);
 
   stocksCopy.forEach((stock) => {
     const scoresPerIndicator = indicatorsAndWeights.map((item) => {
-      return stock.ranking[item.indicator] * item.weight;
+      return stock.indicatorsRanking[item.indicator] * item.weight;
     });
 
     const score = scoresPerIndicator.reduce(scoresReducer, 0) / weightsSum;
@@ -25,12 +39,16 @@ export default function calculateScoresAndSort(
 
   if (options.filterSameEnterpriseStocks) {
     const alreadyListed: any[] = [];
+
     stocksCopy = stocksCopy.filter((stock) => {
       const stockCodeWithoutNumber = stock.code.slice(0, 4);
+
       if (alreadyListed.includes(stockCodeWithoutNumber)) {
         return false;
       }
+
       alreadyListed.push(stockCodeWithoutNumber);
+
       return true;
     });
   }

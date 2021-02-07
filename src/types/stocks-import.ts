@@ -5,7 +5,7 @@ import { prop as Property, getModelForClass } from "@typegoose/typegoose";
 import Stock from "./stock";
 
 @ObjectType()
-export default class StocksImportSchema {
+export default class StocksImport {
   @Field(() => ID)
   id!: number;
 
@@ -18,16 +18,8 @@ export default class StocksImportSchema {
   stocks!: Stock[];
 
   @Field()
-  @Property({ required: true })
+  @Property({ required: true, default: new Date() })
   date!: Date;
-
-  @Field()
-  @Property({ required: true })
-  createdAt!: Date;
-
-  @Field()
-  @Property({ required: true })
-  updatedAt!: Date;
 }
 
-export const StocksImportModel = getModelForClass(StocksImportSchema);
+export const StocksImportModel = getModelForClass(StocksImport);

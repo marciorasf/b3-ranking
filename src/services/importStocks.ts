@@ -42,9 +42,10 @@ export default async function importStocks() {
 
   const stocksWithRanking = calculateRankingPositions(stocks);
 
-  const dailyImport = new StocksImportModel({
+  const newStocksImport = new StocksImportModel({
     stocks: stocksWithRanking,
     importErrors,
   });
-  await dailyImport.save();
+
+  await newStocksImport.save();
 }
