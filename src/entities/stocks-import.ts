@@ -133,11 +133,11 @@ class Stock {
 
   @Field(() => StockIndicators)
   @Property()
-  indicators!: StockIndicators;
+  indicatorsValues!: StockIndicators;
 
   @Field(() => StockIndicators)
   @Property()
-  ranking!: StockIndicators;
+  indicatorsRanking!: StockIndicators;
 }
 
 @ObjectType()
