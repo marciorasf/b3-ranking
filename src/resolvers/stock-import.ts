@@ -1,6 +1,7 @@
 import { Query, Resolver } from "type-graphql";
 
-import StocksImport, { StocksImportModel } from "../entities/stocks-import";
+import { StocksImportModel } from "../entities/stocks-import";
+import StocksImport from "../types/stocks-import";
 
 @Resolver()
 export class StocksImportResolver {

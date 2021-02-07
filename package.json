@@ -10,7 +10,7 @@
     "dev": "nodemon dist/index",
     "start": "node dist/index.js",
     "lint": "yarn eslint src/ --fix",
-    "cli": "NODE_ENV=development node dist/src/cli.js"
+    "cli": "node dist/src/cli.js"
   },
   "devDependencies": {
     "@types/cli-table": "^0.3.0",

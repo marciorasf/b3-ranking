@@ -1,11 +1,23 @@
+/* eslint-disable no-param-reassign */
 import Stock from "../types/stock";
 import { Indicator } from "../types/stock-indicators";
+import StockWithRanking from "../types/stock-with-ranking";
 
-function sortAsc(stocks: Stock[], indicator: Indicator): Stock[] {
+type SortFunction = (
+  _stocks: StockWithRanking[],
+  _indicator: Indicator
+) => StockWithRanking[];
+
+type IndicatorsSortFunctions = Partial<Record<Indicator, SortFunction>>;
+
+function sortAsc(
+  stocks: StockWithRanking[],
+  indicator: Indicator
+): StockWithRanking[] {
   const copy = stocks.slice();
   copy.sort((stockA, stockB) => {
-    const indicatorA = stockA.indicatorsValues[indicator];
-    const indicatorB = stockB.indicatorsValues[indicator];
+    const indicatorA = stockA.indicatorsValues[indicator] as number;
+    const indicatorB = stockB.indicatorsValues[indicator] as number;
 
     return indicatorA - indicatorB;
   });
@@ -13,11 +25,14 @@ function sortAsc(stocks: Stock[], indicator: Indicator): Stock[] {
   return copy;
 }
 
-function sortDesc(stocks: Stock[], indicator: Indicator): Stock[] {
+function sortDesc(
+  stocks: StockWithRanking[],
+  indicator: Indicator
+): StockWithRanking[] {
   const copy = stocks.slice();
   copy.sort((stockA, stockB) => {
-    const indicatorA = stockA.indicatorsValues[indicator];
-    const indicatorB = stockB.indicatorsValues[indicator];
+    const indicatorA = stockA.indicatorsValues[indicator] as number;
+    const indicatorB = stockB.indicatorsValues[indicator] as number;
 
     return indicatorB - indicatorA;
   });
@@ -25,11 +40,14 @@ function sortDesc(stocks: Stock[], indicator: Indicator): Stock[] {
   return copy;
 }
 
-function sortAscPositive(stocks: Stock[], indicator: Indicator): Stock[] {
+function sortAscPositive(
+  stocks: StockWithRanking[],
+  indicator: Indicator
+): StockWithRanking[] {
   const copy = stocks.slice();
   copy.sort((stockA, stockB) => {
-    const indicatorA = stockA.indicatorsValues[indicator];
-    const indicatorB = stockB.indicatorsValues[indicator];
+    const indicatorA = stockA.indicatorsValues[indicator] as number;
+    const indicatorB = stockB.indicatorsValues[indicator] as number;
 
     if (indicatorA >= 0 && indicatorB >= 0) {
       return indicatorA - indicatorB;
@@ -52,11 +70,6 @@ function sortAscPositive(stocks: Stock[], indicator: Indicator): Stock[] {
 
   return copy;
 }
-
-type IndicatorsSortFunctions = Record<
-  Indicator,
-  (stocks: Stock[], indicator: Indicator) => Stock[]
->;
 
 const indicatorsRankingSortFunctions: IndicatorsSortFunctions = {
   dividend_yield: sortAsc,
@@ -91,24 +104,29 @@ const indicatorsRankingSortFunctions: IndicatorsSortFunctions = {
   cagr_lucros_5_anos: sortDesc,
 };
 
-export default function calculateRankingPositions(stocks: Stock[]) {
-  let stocksWithRanking = stocks.slice() as Stock[];
-
-  stocksWithRanking = stocksWithRanking.map((stock) => ({
+export default function calculateRankingPositions(
+  stocks: Stock[]
+): StockWithRanking[] {
+  let stocksWithRanking = stocks.map((stock) => ({
     ...stock,
-    ranking: {},
-  }));
+    indicatorsRanking: {},
+  })) as StockWithRanking[];
 
-  Object.keys(indicatorsRankingSortFunctions).forEach(
-    (indicator: Indicator) => {
-      const sortFunction = indicatorsRankingSortFunctions[indicator];
-      stocksWithRanking = sortFunction(stocksWithRanking, indicator);
+  Object.keys(indicatorsRankingSortFunctions).forEach((indicator) => {
+    const typedIndicator = indicator as Indicator;
+    const sortFunction = indicatorsRankingSortFunctions[
+      typedIndicator
+    ] as SortFunction;
 
-      stocksWithRanking.forEach((stock: Stock, index) => {
-        stock.indicatorsRanking[indicator] = index + 1;
-      });
-    }
-  );
+    stocksWithRanking = sortFunction(stocksWithRanking, typedIndicator);
+
+    stocksWithRanking.forEach((stock: StockWithRanking, index) => {
+      stock.indicatorsRanking = {
+        ...stock.indicatorsRanking,
+        [typedIndicator]: index + 1,
+      };
+    });
+  });
 
   return stocksWithRanking;
 }

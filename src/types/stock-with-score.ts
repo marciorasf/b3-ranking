@@ -1,9 +1,9 @@
 import { Field, ObjectType } from "type-graphql";
 
-import Stock from "./stock";
+import StockWithRanking from "./stock-with-ranking";
 
 @ObjectType()
-export default class StockWithScore extends Stock {
+export default class StockWithRankingAndScore extends StockWithRanking {
   @Field()
   score!: number;
 

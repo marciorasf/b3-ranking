@@ -7,9 +7,9 @@ import program from "commander";
 import packageJson from "../package.json";
 import getStocksWithDefaultRankingOptions from "./services/getStocksWithDefaultRankingOptions";
 import importStocks from "./services/importStocks";
-import StockWithScore from "./types/stock-with-score";
+import StockWithRankingAndScore from "./types/stock-with-score";
 
-function showStocksTable(stocks: StockWithScore[]) {
+function showStocksTable(stocks: StockWithRankingAndScore[]) {
   const table = new Table({
     head: ["code", "position", "score"],
     colWidths: [10, 10, 10],
@@ -32,46 +32,54 @@ program
     process.exit();
   });
 
-// program
-//   .command("default-list")
-//   .description("Get stocks with default ranking options")
-//   .option("-n [n]", "Number of stocks listed")
-//   .option("-f [f]", "Filter stocks of the same enterprise")
-//   .action(async ({ n, f: filter }) => {
-//     let stocks = await getStocksWithDefaultRankingOptions(filter);
+program
+  .command("default-list")
+  .description("Get stocks with default ranking options")
+  .option("-n [n]", "Number of stocks listed")
+  .option("-f [f]", "Filter stocks of the same enterprise")
+  .action(async ({ n, f: filter }) => {
+    let stocks = await getStocksWithDefaultRankingOptions(filter);
 
-//     if (n) {
-//       stocks = stocks.slice(0, n);
-//     }
-//     showStocksTable(stocks);
+    if (!stocks) {
+      return;
+    }
 
-//     process.exit();
-//   });
+    if (n) {
+      stocks = stocks.slice(0, n);
+    }
+    showStocksTable(stocks);
 
-// program
-//   .command("find [codes]")
-//   .description(
-//     "Get stocks with default ranking options. Stocks between quotes separatted by commas"
-//   )
-//   .action(async (rawCodes) => {
-//     const codes = rawCodes.replace(/\s*/g, "").split(",");
-//     const stocks = await getStocksWithDefaultRankingOptions();
+    process.exit();
+  });
 
-//     let stocksFound = codes.map((code: any) => {
-//       return stocks.find(
-//         (stock) => stock.code.toLowerCase() === code.toLowerCase()
-//       );
-//     });
+program
+  .command("find [codes]")
+  .description(
+    "Get stocks with default ranking options. Stocks between quotes separatted by commas"
+  )
+  .action(async (rawCodes) => {
+    const codes = rawCodes.replace(/\s*/g, "").split(",");
+    const stocks = await getStocksWithDefaultRankingOptions();
 
-//     stocksFound = stocksFound.filter((stock: any) => stock);
+    if (!stocks) {
+      return;
+    }
 
-//     if (stocksFound) {
-//       showStocksTable(stocksFound);
-//     } else {
-//       console.log("Stocks not found");
-//     }
+    let stocksFound = codes.map((code: any) => {
+      return stocks.find(
+        (stock) => stock.code.toLowerCase() === code.toLowerCase()
+      );
+    });
 
-//     process.exit();
-//   });
+    stocksFound = stocksFound.filter((stock: any) => stock);
+
+    if (stocksFound) {
+      showStocksTable(stocksFound);
+    } else {
+      console.log("Stocks not found");
+    }
+
+    process.exit();
+  });
 
 program.parse(process.argv);

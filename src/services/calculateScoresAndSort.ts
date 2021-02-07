@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
-import Stock from "../types/stock";
 import { Indicator } from "../types/stock-indicators";
-import StockWithScore from "../types/stock-with-score";
+import StockWithRanking from "../types/stock-with-ranking";
+import StockWithRankingAndScore from "../types/stock-with-score";
 
 const weightsReducer = (accumulator: number, currentItem: any) =>
   accumulator + currentItem.weight;
@@ -19,16 +19,17 @@ interface Options {
 }
 
 export default function calculateScoresAndSort(
-  stocks: Stock[],
+  stocks: StockWithRanking[],
   indicatorsAndWeights: IndicatorAndWeight[],
   options: Options
 ) {
-  let stocksCopy = stocks.slice() as StockWithScore[];
+  let stocksCopy = stocks.slice() as StockWithRankingAndScore[];
   const weightsSum = indicatorsAndWeights.reduce(weightsReducer, 0);
 
   stocksCopy.forEach((stock) => {
     const scoresPerIndicator = indicatorsAndWeights.map((item) => {
-      return stock.indicatorsRanking[item.indicator] * item.weight;
+      const ranking = stock.indicatorsRanking[item.indicator] as number;
+      return ranking * item.weight;
     });
 
     const score = scoresPerIndicator.reduce(scoresReducer, 0) / weightsSum;

@@ -2,7 +2,7 @@ import { Field, ID, ObjectType } from "type-graphql";
 
 import { prop as Property, getModelForClass } from "@typegoose/typegoose";
 
-import Stock from "./stock";
+import StockWithRanking from "./stock-with-ranking";
 
 @ObjectType()
 export default class StocksImport {
@@ -13,9 +13,9 @@ export default class StocksImport {
   @Property({ required: false, type: [String] })
   importErrors!: string[];
 
-  @Field(() => [Stock])
-  @Property({ required: true, type: [Stock] })
-  stocks!: Stock[];
+  @Field(() => [StockWithRanking])
+  @Property({ required: true, type: [StockWithRanking] })
+  stocks!: StockWithRanking[];
 
   @Field()
   @Property({ required: true, default: new Date() })
