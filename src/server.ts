@@ -1,4 +1,5 @@
 import { ApolloServer } from "apollo-server-express";
+import cors from "cors";
 import Express from "express";
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
@@ -17,6 +18,13 @@ export default async function main() {
   const server = new ApolloServer({ schema });
 
   const app = Express();
+
+  app.use(
+    cors({
+      origin: "http://localhost:3000",
+      credentials: true,
+    })
+  );
 
   server.applyMiddleware({ app });
 
