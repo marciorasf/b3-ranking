@@ -18,7 +18,7 @@ export default class StockIndicators {
 
   @Field()
   @Property()
-  preco_da_acao_por_valor_patriomial: number;
+  preco_da_acao_por_valor_patrimonial: number;
 
   @Field()
   @Property()
@@ -66,7 +66,7 @@ export default class StockIndicators {
 
   @Field()
   @Property()
-  divida_liquida_por_ebtida: number;
+  divida_liquida_por_ebitda: number;
 
   @Field()
   @Property()
@@ -78,11 +78,11 @@ export default class StockIndicators {
 
   @Field()
   @Property()
-  passivo_por_ativos: number;
+  passivos_por_ativos: number;
 
   @Field()
   @Property()
-  liquidez_corrent: number;
+  liquidez_corrente: number;
 
   @Field()
   @Property()
@@ -90,7 +90,7 @@ export default class StockIndicators {
 
   @Field()
   @Property()
-  margem_ebtida: number;
+  margem_ebitda: number;
 
   @Field()
   @Property()
@@ -118,9 +118,11 @@ export default class StockIndicators {
 
   @Field()
   @Property()
-  cagr_receita_5_anos: number;
+  cagr_receitas_5_anos: number;
 
   @Field()
   @Property()
-  cagr_lucro_5_anos: number;
+  cagr_lucros_5_anos: number;
 }
+
+export type Indicator = keyof StockIndicators;

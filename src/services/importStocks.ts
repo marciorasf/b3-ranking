@@ -2,7 +2,7 @@
 import { StocksImportModel } from "../entities/stocks-import";
 import Stock from "../types/stock";
 import calculateRankingPositions from "./calculateRankingPositions";
-import getStockIndicators from "./getStockIndicators";
+import getStockIndicatorsFromStatusInvest from "./getStockIndicatorsFromStatusInvest";
 import getStocksCodes from "./getStocksCodes";
 
 export default async function importStocks() {
@@ -23,7 +23,7 @@ export default async function importStocks() {
     await Promise.all(
       foldStocks.map(async (stock) => {
         try {
-          const indicators = await getStockIndicators(stock);
+          const indicators = await getStockIndicatorsFromStatusInvest(stock);
           stocks.push({
             code: stock,
             indicatorsValues: indicators,

@@ -10,7 +10,7 @@
     "dev": "nodemon dist/index",
     "start": "node dist/index.js",
     "lint": "yarn eslint src/ --fix",
-    "cli": "node dist/src/cli.js"
+    "cli": "NODE_ENV=development node dist/src/cli.js"
   },
   "devDependencies": {
     "@types/cli-table": "^0.3.0",
@@ -38,6 +38,8 @@
     "@typegoose/typegoose": "^7.4.8",
     "apollo-server-express": "^2.19.0",
     "argon2": "^0.27.0",
+    "axios": "^0.21.1",
+    "cheerio": "^1.0.0-rc.5",
     "cli-table": "^0.3.4",
     "commander": "^7.0.0",
     "cors": "^2.8.5",

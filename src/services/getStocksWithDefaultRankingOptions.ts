@@ -10,7 +10,7 @@ export default async function getStocksWithDefaultRankingOptions(
     lastImport.stocks,
     [
       {
-        indicator: "ev/ebit",
+        indicator: "enterprise_value_por_ebit",
         weight: 10,
       },
       {
