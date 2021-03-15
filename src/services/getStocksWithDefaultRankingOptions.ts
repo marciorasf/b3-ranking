@@ -15,11 +15,7 @@ export default async function getStocksWithDefaultRankingOptions(
     [
       {
         indicator: "enterprise_value_por_ebit",
-        weight: 10,
-      },
-      {
-        indicator: "roic",
-        weight: 10,
+        weight: 1,
       },
     ],
     {

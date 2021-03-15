@@ -30,6 +30,7 @@ function sortDesc(
   indicator: Indicator
 ): StockWithRanking[] {
   const copy = stocks.slice();
+
   copy.sort((stockA, stockB) => {
     const indicatorA = stockA.indicatorsValues[indicator] as number;
     const indicatorB = stockB.indicatorsValues[indicator] as number;
@@ -72,10 +73,10 @@ function sortAscPositive(
 }
 
 const indicatorsRankingSortFunctions: IndicatorsSortFunctions = {
-  dividend_yield: sortAsc,
+  dividend_yield: sortDesc,
   preco_da_acao_por_lucro: sortAscPositive,
   peg_ratio: sortAscPositive,
-  preco_da_acao_por_valor_patrimonial: sortAsc,
+  preco_da_acao_por_valor_patrimonial: sortAscPositive,
   enterprise_value_por_ebitda: sortAscPositive,
   enterprise_value_por_ebit: sortAscPositive,
   preco_da_acao_por_ebitda: sortAscPositive,
