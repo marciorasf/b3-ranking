@@ -1,9 +1,9 @@
 /* eslint-disable no-await-in-loop */
 import { StocksImportModel } from "../entities/stocks-import";
 import Stock from "../types/stock";
-import calculateRankingPositions from "./calculateRankingPositions";
-import getStockIndicatorsFromStatusInvest from "./getStockIndicatorsFromStatusInvest";
-import getStocksCodes from "./getStocksCodes";
+import calculateRankingPositions from "./calculate-ranking-positions";
+import getStockIndicatorsFromStatusInvest from "./get-stock-indicators-from-status-invest";
+import getStocksCodes from "./get-stocks-codes";
 
 export default async function importStocks() {
   const availableStocks = await getStocksCodes();

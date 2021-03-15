@@ -5,8 +5,8 @@ import Table from "cli-table";
 import program from "commander";
 
 import packageJson from "../package.json";
-import getStocksWithDefaultRankingOptions from "./services/getStocksWithDefaultRankingOptions";
-import importStocks from "./services/importStocks";
+import getStocksWithDefaultRankingOptions from "./services/get-stocks-with-default-ranking-options";
+import importStocks from "./services/import-stocks";
 import StockWithRankingAndScore from "./types/stock-with-ranking-and-score";
 
 function showStocksTable(stocks: StockWithRankingAndScore[]) {

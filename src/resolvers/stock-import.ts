@@ -1,7 +1,7 @@
 import { Query, Resolver } from "type-graphql";
 
-import getLastImport from "../services/getLastImport";
-import getStocksWithDefaultRankingOptions from "../services/getStocksWithDefaultRankingOptions";
+import getLastImport from "../services/get-last-import";
+import getStocksWithDefaultRankingOptions from "../services/get-stocks-with-default-ranking-options";
 import StockWithRankingAndScore from "../types/stock-with-ranking-and-score";
 import StocksImport from "../types/stocks-import";
 

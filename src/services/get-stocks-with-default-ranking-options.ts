@@ -1,6 +1,6 @@
 import "../config/mongo";
-import calculateScoresAndSort from "./calculateScoresAndSort";
-import getLastImport from "./getLastImport";
+import calculateScoresAndSort from "./calculate-scores-and-sort";
+import getLastImport from "./get-last-import";
 
 export default async function getStocksWithDefaultRankingOptions(
   filterSameEnterpriseStocks = false
