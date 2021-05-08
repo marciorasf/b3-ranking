@@ -5,20 +5,19 @@ import Table from "cli-table";
 import program from "commander";
 
 import packageJson from "../package.json";
-import filterStocks from "./functions/filter-stocks";
+import filterSameEnterpriseStocks from "./functions/filter-same-enterprise-stocks";
 import getLastImport from "./functions/get-last-import";
 import importStocks from "./functions/import-stocks";
-import StockWithRankingAndScore from "./types/stock-with-ranking-and-score";
+import marciorasf from "./strategies/marciorasf";
+import StockWithScore from "./types/stock-with-score";
 
-export function showStocksTable(stocks: StockWithRankingAndScore[]) {
+function showStocksTable(stocks: StockWithScore[]) {
   const table = new Table({
-    head: ["code", "position", "score"],
-    colWidths: [10, 10, 10],
+    head: ["code", "score"],
+    colWidths: [10, 10],
   });
 
-  stocks.map((stock) =>
-    table.push([stock.code, stock.score_position, stock.score])
-  );
+  stocks.map((stock) => table.push([stock.code, stock.score]));
   console.log(table.toString());
 }
 
@@ -38,7 +37,7 @@ program
   .description("Get stocks with default ranking options")
   .option("-n [n]", "Number of stocks listed")
   .option("-f [f]", "Filter stocks of the same enterprise")
-  .action(async () => {
+  .action(async ({ n, f }) => {
     const lastImport = await getLastImport();
 
     if (!lastImport) {
@@ -47,16 +46,17 @@ program
 
     const { stocks } = lastImport;
 
-    filterStocks(stocks, {
-      liquidez_media_diaria: {
-        min: 200000,
-      },
-      enterprise_value_por_ebit: {
-        min: 0,
-        max: 6,
-      },
-    });
-    // showStocksTable(stocks);
+    let sortedStocks = marciorasf(stocks);
+
+    if (f) {
+      sortedStocks = filterSameEnterpriseStocks(sortedStocks);
+    }
+
+    if (n) {
+      sortedStocks = sortedStocks.slice(0, n);
+    }
+
+    showStocksTable(sortedStocks);
 
     process.exit();
   });
