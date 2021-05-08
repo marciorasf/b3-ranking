@@ -7,7 +7,7 @@ const marciorasf: Strategy = {
     },
     enterprise_value_por_ebit: {
       min: 0,
-      max: 10,
+      max: 15,
     },
     roic: {
       min: 0,
