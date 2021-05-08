@@ -1,9 +1,10 @@
 /* eslint-disable no-await-in-loop */
-import { __import_fold_length__ } from "../config/env";
 import { StocksImportModel } from "../entities/stocks-import";
 import Stock from "../types/stock";
 import getStockIndicatorsFromStatusInvest from "./get-stock-indicators-from-status-invest";
 import getStocksCodes from "./get-stocks-codes";
+
+const IMPORT_FOLD_LENGTH = 20;
 
 export default async function importStocks() {
   const availableStocks = await getStocksCodes();
@@ -12,7 +13,7 @@ export default async function importStocks() {
   const importErrors: string[] = [];
   const stocks: Stock[] = [];
 
-  const sliceLength = __import_fold_length__;
+  const sliceLength = IMPORT_FOLD_LENGTH;
   const nFolds = Math.ceil(nStocks / sliceLength);
   let startIndex = 0;
   let endIndex = nFolds === 1 ? nStocks : sliceLength;
