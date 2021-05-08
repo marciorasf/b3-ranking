@@ -95,7 +95,7 @@ program
 
       const { stocks } = lastImport;
 
-      let sortedStocks = runRankingStrategy(stocks, s, false);
+      let sortedStocks = runRankingStrategy(stocks, s);
 
       sortedStocks = filterSameEnterpriseStocks(sortedStocks);
 
@@ -104,7 +104,11 @@ program
         return { code, position };
       }) as StockWithPosition[];
 
-      showFindStocksTable(stocksWithPosition);
+      const sortedStocksWithPositions = stocksWithPosition.sort(
+        (stockA, stockB) => stockA.position - stockB.position
+      );
+
+      showFindStocksTable(sortedStocksWithPositions);
     } catch (err) {
       console.error("Error: ", err.message);
     }
