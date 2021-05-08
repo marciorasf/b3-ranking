@@ -10,8 +10,7 @@
     "dev": "nodemon dist/src/index",
     "start": "node dist/src/index",
     "lint": "yarn eslint src/ --fix",
-    "cli": "node dist/src/cli.js",
-    "find-mine": "yarn cli find 'sqia3, elet3, klbn4, egie3, sapr4, sapr3'"
+    "cli": "node dist/src/cli.js"
   },
   "dependencies": {
     "@typegoose/typegoose": "^7.4.8",
