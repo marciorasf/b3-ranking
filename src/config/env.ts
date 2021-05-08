@@ -8,4 +8,4 @@ export const __port__ = process.env.PORT || 3333;
 
 export const __import_fold_length__ = 20;
 
-export const __use_dev_stocks__ = true;
+export const __use_dev_stocks__ = false;
