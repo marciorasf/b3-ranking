@@ -1,4 +1,5 @@
 /* eslint-disable no-await-in-loop */
+import { importFoldLength } from "../config/env";
 import { StocksImportModel } from "../entities/stocks-import";
 import Stock from "../types/stock";
 import calculateRankingPositions from "./calculate-ranking-positions";
@@ -12,7 +13,7 @@ export default async function importStocks() {
   const importErrors: string[] = [];
   const stocks: Stock[] = [];
 
-  const sliceLength = 5;
+  const sliceLength = importFoldLength;
   const nFolds = Math.ceil(nStocks / sliceLength);
   let startIndex = 0;
   let endIndex = nFolds === 1 ? nStocks : sliceLength;
