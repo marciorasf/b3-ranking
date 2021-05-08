@@ -12,22 +12,16 @@ interface ValueNode {
 }
 
 function formatStringValue(value: string) {
-  const number = parseFloat(
-    value.replace(/\./g, "").replace(",", ".").replace("%", "")
-  );
+  const number = parseFloat(value.replace(/\./g, "").replace(",", ".").replace("%", ""));
   return Number.isNaN(number) ? null : number;
 }
 
 function getLiquidezMediaDiaria(html: string) {
   const $ = cheerio.load(html);
 
-  const liquidez_media_diaria_string = $(
-    ".card>.top-info>div:nth-child(3) strong.value"
-  ).html();
+  const liquidez_media_diaria_string = $(".card>.top-info>div:nth-child(3) strong.value").html();
 
-  const liquidez_media_diaria = formatStringValue(
-    liquidez_media_diaria_string || ""
-  );
+  const liquidez_media_diaria = formatStringValue(liquidez_media_diaria_string || "");
 
   return liquidez_media_diaria;
 }
@@ -35,9 +29,7 @@ function getLiquidezMediaDiaria(html: string) {
 function getIndicatorsNodes(html: string) {
   const $ = cheerio.load(html);
 
-  const indicatorsSection = $(
-    ".indicator-today-container .d-flex.flex-wrap"
-  ).html() as string;
+  const indicatorsSection = $(".indicator-today-container .d-flex.flex-wrap").html() as string;
   cheerio.load(indicatorsSection);
 
   const valuesNodes = ($(
@@ -48,10 +40,7 @@ function getIndicatorsNodes(html: string) {
 }
 
 export default async function getStockIndicatorsFromStatusInvest(code: string) {
-  const response = await axios.get(
-    `https://statusinvest.com.br/acoes/${code}`,
-    { timeout: 20000 }
-  );
+  const response = await axios.get(`https://statusinvest.com.br/acoes/${code}`, { timeout: 20000 });
 
   const html = response.data;
 
@@ -100,9 +89,7 @@ export default async function getStockIndicatorsFromStatusInvest(code: string) {
   };
 
   indicatorsKeysInOrder.forEach((key, index) => {
-    indicators[key] = formatStringValue(
-      indicatorsNodes[index].children[0].data
-    );
+    indicators[key] = formatStringValue(indicatorsNodes[index].children[0].data);
   });
 
   return indicators as StockIndicators;
