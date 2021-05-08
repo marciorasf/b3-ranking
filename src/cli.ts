@@ -8,7 +8,7 @@ import packageJson from "../package.json";
 import filterSameEnterpriseStocks from "./functions/filter-same-enterprise-stocks";
 import getLastImport from "./functions/get-last-import";
 import importStocks from "./functions/import-stocks";
-import rankingStrategy from "./strategies";
+import runRankingStrategy from "./functions/run-strategy-ranking";
 import { StockWithPosition } from "./types/find-stocks";
 import StockWithScore from "./types/stock-with-score";
 
@@ -59,7 +59,7 @@ program
 
       const { stocks } = lastImport;
 
-      let sortedStocks = rankingStrategy(stocks, s);
+      let sortedStocks = runRankingStrategy(stocks, s);
 
       if (f) {
         sortedStocks = filterSameEnterpriseStocks(sortedStocks);
@@ -95,7 +95,7 @@ program
 
       const { stocks } = lastImport;
 
-      let sortedStocks = rankingStrategy(stocks, s);
+      let sortedStocks = runRankingStrategy(stocks, s, false);
 
       sortedStocks = filterSameEnterpriseStocks(sortedStocks);
 

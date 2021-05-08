@@ -3,17 +3,11 @@ import Stock from "../types/stock";
 import { Indicator } from "../types/stock-indicators";
 import StockWithRanking from "../types/stock-with-ranking";
 
-type SortFunction = (
-  _stocks: StockWithRanking[],
-  _indicator: Indicator
-) => StockWithRanking[];
+type SortFunction = (_stocks: StockWithRanking[], _indicator: Indicator) => StockWithRanking[];
 
 type IndicatorsSortFunctions = Partial<Record<Indicator, SortFunction>>;
 
-function sortAsc(
-  stocks: StockWithRanking[],
-  indicator: Indicator
-): StockWithRanking[] {
+function sortAsc(stocks: StockWithRanking[], indicator: Indicator): StockWithRanking[] {
   const copy = stocks.slice();
   copy.sort((stockA, stockB) => {
     const indicatorA = stockA.indicatorsValues[indicator] as number;
@@ -25,10 +19,7 @@ function sortAsc(
   return copy;
 }
 
-function sortDesc(
-  stocks: StockWithRanking[],
-  indicator: Indicator
-): StockWithRanking[] {
+function sortDesc(stocks: StockWithRanking[], indicator: Indicator): StockWithRanking[] {
   const copy = stocks.slice();
 
   copy.sort((stockA, stockB) => {
@@ -41,10 +32,7 @@ function sortDesc(
   return copy;
 }
 
-function sortAscPositive(
-  stocks: StockWithRanking[],
-  indicator: Indicator
-): StockWithRanking[] {
+function sortAscPositive(stocks: StockWithRanking[], indicator: Indicator): StockWithRanking[] {
   const copy = stocks.slice();
   copy.sort((stockA, stockB) => {
     const indicatorA = stockA.indicatorsValues[indicator] as number;
@@ -105,10 +93,7 @@ const indicatorsRankingSortFunctions: IndicatorsSortFunctions = {
   cagr_lucros_5_anos: sortDesc,
 };
 
-export default function calculateRanking(
-  stocks: Stock[],
-  indicators: Indicator[]
-) {
+export default function calculateRanking(stocks: Stock[], indicators: Indicator[]) {
   let stocksWithRanking = stocks.map((stock) => ({
     code: stock.code,
     indicatorsValues: stock.indicatorsValues,
@@ -116,9 +101,7 @@ export default function calculateRanking(
   })) as StockWithRanking[];
 
   indicators.forEach((indicator) => {
-    const sortFunction = indicatorsRankingSortFunctions[
-      indicator
-    ] as SortFunction;
+    const sortFunction = indicatorsRankingSortFunctions[indicator] as SortFunction;
 
     stocksWithRanking = sortFunction(stocksWithRanking, indicator);
 
