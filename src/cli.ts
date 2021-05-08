@@ -5,8 +5,9 @@ import Table from "cli-table";
 import program from "commander";
 
 import packageJson from "../package.json";
-import getLastImport from "./services/get-last-import";
-import importStocks from "./services/import-stocks";
+import filterStocks from "./functions/filter-stocks";
+import getLastImport from "./functions/get-last-import";
+import importStocks from "./functions/import-stocks";
 import StockWithRankingAndScore from "./types/stock-with-ranking-and-score";
 
 export function showStocksTable(stocks: StockWithRankingAndScore[]) {
@@ -37,20 +38,24 @@ program
   .description("Get stocks with default ranking options")
   .option("-n [n]", "Number of stocks listed")
   .option("-f [f]", "Filter stocks of the same enterprise")
-  .action(async ({ n, f: filter }) => {
+  .action(async () => {
     const lastImport = await getLastImport();
 
     if (!lastImport) {
-      console.log(filter);
       return;
     }
 
-    let { stocks } = lastImport;
+    const { stocks } = lastImport;
 
-    if (n) {
-      stocks = stocks.slice(0, n);
-    }
-    console.log(stocks);
+    filterStocks(stocks, {
+      liquidez_media_diaria: {
+        min: 200000,
+      },
+      enterprise_value_por_ebit: {
+        min: 0,
+        max: 6,
+      },
+    });
     // showStocksTable(stocks);
 
     process.exit();
