@@ -2,7 +2,6 @@
 import { __import_fold_length__ } from "../config/env";
 import { StocksImportModel } from "../entities/stocks-import";
 import Stock from "../types/stock";
-import calculateRankingPositions from "./calculate-ranking-positions";
 import getStockIndicatorsFromStatusInvest from "./get-stock-indicators-from-status-invest";
 import getStocksCodes from "./get-stocks-codes";
 
@@ -41,10 +40,8 @@ export default async function importStocks() {
     endIndex = foldIndex === nFolds - 2 ? nStocks : endIndex + sliceLength;
   }
 
-  const stocksWithRanking = calculateRankingPositions(stocks);
-
   const newStocksImport = new StocksImportModel({
-    stocks: stocksWithRanking,
+    stocks,
     importErrors,
   });
 
