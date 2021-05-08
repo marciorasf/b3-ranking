@@ -4,9 +4,10 @@ import { Indicator } from "../types/stock-indicators";
 type FilterOptions = {
   min?: number;
   max?: number;
+  exists?: true;
 };
 
-type Filters = Partial<Record<Indicator, FilterOptions>>;
+export type Filters = Partial<Record<Indicator, FilterOptions>>;
 
 export default function filterStocks(stocks: Stock[], filters: Filters) {
   let filteredStocks = stocks;
