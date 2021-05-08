@@ -5,7 +5,7 @@ import StockWithScore from "../types/stock-with-score";
 import calculateRanking from "./calculate-ranking";
 import filterStocks, { Filters } from "./filter-stocks";
 
-type IndicatorsWeights = Partial<Record<Indicator, number>>;
+export type IndicatorsWeights = Partial<Record<Indicator, number>>;
 
 export default function calculateScores(
   stocks: Stock[],

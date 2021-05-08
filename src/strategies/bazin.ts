@@ -1,6 +1,6 @@
 import { Strategy } from "../types/strategy";
 
-const marciorasf: Strategy = {
+const bazin: Strategy = {
   filters: {
     liquidez_media_diaria: {
       min: 100000,
@@ -24,4 +24,4 @@ const marciorasf: Strategy = {
   },
 };
 
-export default marciorasf;
+export default bazin;
