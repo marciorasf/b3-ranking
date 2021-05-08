@@ -25,7 +25,7 @@ export default async function getStockIndicatorsFromStatusInvest(code: string) {
   const html = response.data;
   const $ = cheerio.load(html);
   const indicatorsSection = $(
-    ".today-historical-container .d-flex.flex-wrap"
+    ".indicator-today-container .d-flex.flex-wrap"
   ).html() as string;
   cheerio.load(indicatorsSection);
 
