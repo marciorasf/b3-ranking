@@ -7,10 +7,7 @@ import filterStocks, { Filters } from "./filter-stocks";
 
 export type IndicatorsWeights = Partial<Record<Indicator, number>>;
 
-export default function calculateScores(
-  stocks: Stock[],
-  indicatorsWeights: IndicatorsWeights
-) {
+export default function calculateScores(stocks: Stock[], indicatorsWeights: IndicatorsWeights) {
   const filters: Filters = {};
 
   Object.keys(indicatorsWeights).forEach((key) => {

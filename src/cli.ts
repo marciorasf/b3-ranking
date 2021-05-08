@@ -9,15 +9,26 @@ import filterSameEnterpriseStocks from "./functions/filter-same-enterprise-stock
 import getLastImport from "./functions/get-last-import";
 import importStocks from "./functions/import-stocks";
 import rankingStrategy from "./strategies";
+import { StockWithPosition } from "./types/find-stocks";
 import StockWithScore from "./types/stock-with-score";
 
-function showStocksTable(stocks: StockWithScore[]) {
+function showListStocksTable(stocks: StockWithScore[]) {
   const table = new Table({
     head: ["code", "score", "position"],
     colWidths: [10, 10, 10],
   });
 
   stocks.map((stock, index) => table.push([stock.code, stock.score, index]));
+  console.log(table.toString());
+}
+
+function showFindStocksTable(stocks: StockWithPosition[]) {
+  const table = new Table({
+    head: ["code", "position"],
+    colWidths: [10, 10],
+  });
+
+  stocks.map((stock) => table.push([stock.code, stock.position]));
   console.log(table.toString());
 }
 
@@ -34,8 +45,8 @@ program
 
 program
   .command("list")
-  .description("Get stocks with default ranking options")
-  .option("-s [s]", "Chose strategy to run")
+  .description("Get filtered and ranked stocks")
+  .option("-s [s]", "Chose strategy to run. Available strategies: marciorasf, bazin")
   .option("-n [n]", "Number of stocks listed")
   .option("-f [f]", "Filter stocks of the same enterprise")
   .action(async ({ n, f, s }) => {
@@ -58,7 +69,42 @@ program
         sortedStocks = sortedStocks.slice(0, n);
       }
 
-      showStocksTable(sortedStocks);
+      showListStocksTable(sortedStocks);
+    } catch (err) {
+      console.error("Error: ", err.message);
+    }
+    process.exit();
+  });
+
+program
+  .command("find")
+  .description("Get stocks with default ranking options")
+  .option("-s [s]", "Chose strategy to run. Available strategies: marciorasf, bazin")
+  .option("--stocks [s]", "Stocks")
+  .action(async ({ stocks: stocksToFind, s }) => {
+    try {
+      const stockCodes = stocksToFind
+        .split(",")
+        .map((stock: string) => stock.trim().toUpperCase().slice(0, 4));
+
+      const lastImport = await getLastImport();
+
+      if (!lastImport) {
+        return;
+      }
+
+      const { stocks } = lastImport;
+
+      let sortedStocks = rankingStrategy(stocks, s);
+
+      sortedStocks = filterSameEnterpriseStocks(sortedStocks);
+
+      const stocksWithPosition = stockCodes.map((code: string) => {
+        const position = sortedStocks.findIndex((stock) => stock.code.slice(0, 4) === code);
+        return { code, position };
+      }) as StockWithPosition[];
+
+      showFindStocksTable(stocksWithPosition);
     } catch (err) {
       console.error("Error: ", err.message);
     }
