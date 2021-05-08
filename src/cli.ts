@@ -46,7 +46,7 @@ program
 program
   .command("list")
   .description("Get filtered and ranked stocks")
-  .option("-s [s]", "Chose strategy to run. Available strategies: marciorasf, bazin")
+  .option("-s [s]", "Chose strategy to run. Available strategies: marciorasf, bazin, onlyEbit")
   .option("-n [n]", "Number of stocks listed")
   .option("-f [f]", "Filter stocks of the same enterprise")
   .action(async ({ n, f, s }) => {
@@ -79,7 +79,7 @@ program
 program
   .command("find")
   .description("Get stocks with default ranking options")
-  .option("-s [s]", "Chose strategy to run. Available strategies: marciorasf, bazin")
+  .option("-s [s]", "Chose strategy to run. Available strategies: marciorasf, bazin, onlyEbit")
   .option("--stocks [s]", "Stocks")
   .action(async ({ stocks: stocksToFind, s }) => {
     try {
