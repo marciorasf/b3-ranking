@@ -5,10 +5,6 @@ const bazin: Strategy = {
     liquidez_media_diaria: {
       min: 100000,
     },
-    enterprise_value_por_ebit: {
-      min: 0,
-      max: 10,
-    },
     roic: {
       min: 0,
     },
@@ -18,9 +14,12 @@ const bazin: Strategy = {
     divida_liquida_por_patrimonio_liquido: {
       max: 1,
     },
+    dividend_yield: {
+      min: 6,
+    },
   },
   rankingWeights: {
-    enterprise_value_por_ebit: 1,
+    dividend_yield: 1,
   },
 };
 
