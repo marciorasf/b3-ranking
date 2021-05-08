@@ -13,11 +13,11 @@ import StockWithScore from "./types/stock-with-score";
 
 function showStocksTable(stocks: StockWithScore[]) {
   const table = new Table({
-    head: ["code", "score"],
-    colWidths: [10, 10],
+    head: ["code", "score", "position"],
+    colWidths: [10, 10, 10],
   });
 
-  stocks.map((stock) => table.push([stock.code, stock.score]));
+  stocks.map((stock, index) => table.push([stock.code, stock.score, index]));
   console.log(table.toString());
 }
 
