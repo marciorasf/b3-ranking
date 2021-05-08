@@ -6,6 +6,10 @@ import { prop as Property } from "@typegoose/typegoose";
 export default class StockIndicators {
   @Field({ nullable: true })
   @Property()
+  liquidez_media_diaria?: number;
+
+  @Field({ nullable: true })
+  @Property()
   dividend_yield?: number;
 
   @Field({ nullable: true })
