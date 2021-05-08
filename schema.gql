@@ -10,7 +10,11 @@ scalar DateTime
 
 type Query {
   currentStocks: StocksImport!
-  stocksByRecommendedRanking: [StockWithRankingAndScore!]!
+}
+
+type Stock {
+  code: String!
+  indicatorsValues: StockIndicators!
 }
 
 type StockIndicators {
@@ -24,6 +28,7 @@ type StockIndicators {
   enterprise_value_por_ebitda: Float
   giro_ativos: Float
   liquidez_corrente: Float
+  liquidez_media_diaria: Float
   lucro_por_acao: Float
   margem_bruta: Float
   margem_ebit: Float
@@ -46,23 +51,9 @@ type StockIndicators {
   valor_patrimonial_por_acao: Float
 }
 
-type StockWithRanking {
-  code: String!
-  indicatorsRanking: StockIndicators!
-  indicatorsValues: StockIndicators!
-}
-
-type StockWithRankingAndScore {
-  code: String!
-  indicatorsRanking: StockIndicators!
-  indicatorsValues: StockIndicators!
-  score: Float!
-  score_position: Float!
-}
-
 type StocksImport {
   date: DateTime!
   id: ID!
   importErrors: [String!]!
-  stocks: [StockWithRanking!]!
+  stocks: [Stock!]!
 }
