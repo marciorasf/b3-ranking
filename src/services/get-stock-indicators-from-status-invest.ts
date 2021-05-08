@@ -11,9 +11,40 @@ interface ValueNode {
   children: ValueNodeChildren[];
 }
 
-function formatInput(value: string) {
-  const number = parseFloat(value.replace(",", ".").replace("%", ""));
+function formatStringValue(value: string) {
+  const number = parseFloat(
+    value.replace(/\./g, "").replace(",", ".").replace("%", "")
+  );
   return Number.isNaN(number) ? null : number;
+}
+
+function getLiquidezMediaDiaria(html: string) {
+  const $ = cheerio.load(html);
+
+  const liquidez_media_diaria_string = $(
+    ".card>.top-info>div:nth-child(3) strong.value"
+  ).html();
+
+  const liquidez_media_diaria = formatStringValue(
+    liquidez_media_diaria_string || ""
+  );
+
+  return liquidez_media_diaria;
+}
+
+function getIndicatorsNodes(html: string) {
+  const $ = cheerio.load(html);
+
+  const indicatorsSection = $(
+    ".indicator-today-container .d-flex.flex-wrap"
+  ).html() as string;
+  cheerio.load(indicatorsSection);
+
+  const valuesNodes = ($(
+    "strong.value.d-block.lh-4.fs-4.fw-700"
+  ).toArray() as unknown) as ValueNode[];
+
+  return valuesNodes;
 }
 
 export default async function getStockIndicatorsFromStatusInvest(code: string) {
@@ -23,15 +54,8 @@ export default async function getStockIndicatorsFromStatusInvest(code: string) {
   );
 
   const html = response.data;
-  const $ = cheerio.load(html);
-  const indicatorsSection = $(
-    ".indicator-today-container .d-flex.flex-wrap"
-  ).html() as string;
-  cheerio.load(indicatorsSection);
 
-  const valuesNodes = ($(
-    "strong.value.d-block.lh-4.fs-4.fw-700"
-  ).toArray() as unknown) as ValueNode[];
+  const indicatorsNodes = getIndicatorsNodes(html);
 
   const indicatorsKeysInOrder: Indicator[] = [
     "dividend_yield",
@@ -66,13 +90,19 @@ export default async function getStockIndicatorsFromStatusInvest(code: string) {
     "cagr_lucros_5_anos",
   ];
 
-  if (valuesNodes.length !== indicatorsKeysInOrder.length) {
+  if (indicatorsNodes.length !== indicatorsKeysInOrder.length) {
     throw Error("different lengths");
   }
 
-  const indicators: any = {};
+  const liquidez_media_diaria = getLiquidezMediaDiaria(html);
+  const indicators: any = {
+    liquidez_media_diaria,
+  };
+
   indicatorsKeysInOrder.forEach((key, index) => {
-    indicators[key] = formatInput(valuesNodes[index].children[0].data);
+    indicators[key] = formatStringValue(
+      indicatorsNodes[index].children[0].data
+    );
   });
 
   return indicators as StockIndicators;
