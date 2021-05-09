@@ -10,20 +10,20 @@ services:
     links:
       - mongo
     networks:
-      - mongo-compose-network
+      - stocks-sort-net
 
   mongo:
     image: mongo:4.4
     ports:
       - "27017:27017"
     volumes:
-      - stocks-sort-vol/MongoDB:/data/db
+      - stocks-sort-vol:/data/db
     networks:
-      - mongo-compose-network
+      - stocks-sort-net
 
 volumes:
   stocks-sort-vol:
 
 networks:
-    mongo-compose-network:
+    stocks-sort-net:
       driver: bridge
