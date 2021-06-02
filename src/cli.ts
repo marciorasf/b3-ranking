@@ -40,6 +40,23 @@ program
   });
 
 program
+  .command("errors")
+  .description("Display stocks that couldn't be imported")
+  .action(async () => {
+    const lastImport = await getLastImport();
+
+    if (!lastImport) {
+      return;
+    }
+
+    const errors = lastImport.importErrors
+
+    console.log(errors)
+
+    process.exit();
+  });
+
+program
   .command("list")
   .description("Get filtered and rank stocks")
   .option(
@@ -51,10 +68,6 @@ program
   .action(async ({ n: numberOfStocks, f: filterStocks, s: strategy }) => {
     try {
       const lastImport = await getLastImport();
-
-      await new Promise((resolve) =>
-        setTimeout(() => resolve(true), 1000)
-      )
 
       if (!lastImport) {
         return;

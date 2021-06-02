@@ -10,7 +10,7 @@ First, I intended to make a program to only get the stocks and applies Greenblat
 
 To get the stocks' indicators it crawls the [Status Invest](https://statusinvest.com.br/) site for each stock. Then it saves in a convenient format on a MongoDB to be consumed later.
 
-Then it runs a ranking algorithm based on specified indicators and constraints.
+Finally, it runs a ranking algorithm based on specified indicators and constraints.
 
 ## Important notes
 
@@ -88,6 +88,7 @@ To run it, execute:
 ```bash
 yarn cli import
 ```
+<br/>
 
 :warning: Sometimes occurs errors when importing some stocks. See the **errors** command below to learn how to check which stocks are not on the database.
 
@@ -106,6 +107,8 @@ To run it with the default options, execute:
 ```bash
 yarn cli list
 ```
+
+<br/>
 
 You can also pass some options and flags. Let's see those options now.
 
