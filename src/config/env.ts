@@ -2,6 +2,6 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-export const __dev__ = process.env.NODE_ENV === "development";
+export const IS_DEV = process.env.NODE_ENV === "development";
 
-export const __port__ = process.env.PORT || 3333;
+export const PORT = process.env.PORT || 3333;

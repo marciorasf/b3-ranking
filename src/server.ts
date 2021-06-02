@@ -4,7 +4,7 @@ import Express from "express";
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
 
-import { __port__ } from "@config/env";
+import { PORT } from "@config/env";
 import "@config/mongo";
 import { StocksImportResolver } from "@resolvers/stock-import";
 
@@ -28,8 +28,8 @@ async function main() {
 
   server.applyMiddleware({ app });
 
-  app.listen({ port: __port__ }, () => {
-    console.log(`🚀 Server listening on port ${__port__}`);
+  app.listen({ port: PORT }, () => {
+    console.log(`🚀 Server listening on port ${PORT}`);
   });
 }
 
