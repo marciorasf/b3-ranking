@@ -40,7 +40,9 @@ function getIndicatorsNodes(html: string) {
 }
 
 export default async function getStockIndicatorsFromStatusInvest(code: string) {
-  const response = await axios.get(`https://statusinvest.com.br/acoes/${code}`, { timeout: 20000 });
+  const response = await axios.get(`https://statusinvest.com.br/acoes/${code}`, {
+    timeout: 100000,
+  });
 
   const html = response.data;
 

@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-import "@config/mongo";
 import Table from "cli-table";
 import program from "commander";
 
+import "@/mongo";
 import filterSameEnterpriseStocks from "@functions/filter-same-enterprise-stocks";
 import getLastImport from "@functions/get-last-import";
 import importStocks from "@functions/import-stocks";
@@ -41,16 +41,20 @@ program
 
 program
   .command("list")
-  .description("Get filtered and ranked stocks")
+  .description("Get filtered and rank stocks")
   .option(
     "-s [s]",
-    "Chose strategy to run. Available strategies: marciorasf, bazin, onlyEbit, custom"
+    "Chose strategy to run. Available strategies: custom, marciorasf, bazin, onlyEbit"
   )
   .option("-n [n]", "Number of stocks listed")
   .option("-f [f]", "Filter stocks of the same enterprise")
-  .action(async ({ n, f, s }) => {
+  .action(async ({ n: numberOfStocks, f: filterStocks, s: strategy }) => {
     try {
       const lastImport = await getLastImport();
+
+      await new Promise((resolve) =>
+        setTimeout(() => resolve(true), 1000)
+      )
 
       if (!lastImport) {
         return;
@@ -58,20 +62,21 @@ program
 
       const { stocks } = lastImport;
 
-      let sortedStocks = runRankingStrategy(stocks, s);
+      let sortedStocks = runRankingStrategy(stocks, strategy || "custom");
 
-      if (f) {
+      if (filterStocks) {
         sortedStocks = filterSameEnterpriseStocks(sortedStocks);
       }
 
-      if (n) {
-        sortedStocks = sortedStocks.slice(0, n);
+      if (numberOfStocks) {
+        sortedStocks = sortedStocks.slice(0, numberOfStocks);
       }
 
       showListStocksTable(sortedStocks);
     } catch (err) {
       console.error("Error: ", err.message);
     }
+
     process.exit();
   });
 
@@ -80,7 +85,7 @@ program
   .description("Get stocks with default ranking options")
   .option("-s [s]", "Chose strategy to run. Available strategies: marciorasf, bazin, onlyEbit")
   .option("--stocks [s]", "Stocks")
-  .action(async ({ stocks: stocksToFind, s }) => {
+  .action(async ({ stocks: stocksToFind, s: strategy }) => {
     try {
       const stockCodes = stocksToFind
         .split(",")
@@ -94,7 +99,7 @@ program
 
       const { stocks } = lastImport;
 
-      let sortedStocks = runRankingStrategy(stocks, s);
+      let sortedStocks = runRankingStrategy(stocks, strategy || "custom");
 
       sortedStocks = filterSameEnterpriseStocks(sortedStocks);
 
@@ -111,6 +116,8 @@ program
     } catch (err) {
       console.error("Error: ", err.message);
     }
+
     process.exit();
   });
+
 program.parse(process.argv);

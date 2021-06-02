@@ -5,11 +5,7 @@ import Stock from "@protocols/stock";
 import { StrategyName } from "@protocols/strategy";
 import getStrategyConfig from "@strategies/get-strategy-config";
 
-export default function runStrategy(
-  stocks: Stock[],
-  strategy: StrategyName = "marciorasf",
-  useFilters = true
-) {
+export default function runStrategy(stocks: Stock[], strategy: StrategyName, useFilters = true) {
   const strategyConfig = getStrategyConfig(strategy);
 
   if (!strategyConfig) {
