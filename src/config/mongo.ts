@@ -1,8 +1,6 @@
-import mongoose from "mongoose";
+export const { MONGO_URI } = process.env;
 
-mongoose.connect("mongodb://localhost:27017/stocks", {
+export const connectionOptions = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-});
-
-export default mongoose;
+};
