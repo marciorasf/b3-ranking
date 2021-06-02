@@ -1,4 +1,4 @@
-import { Strategy } from "../types/strategy";
+import { Strategy } from "@protocols/strategy";
 
 const bazin: Strategy = {
   filters: {

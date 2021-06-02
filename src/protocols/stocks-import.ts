@@ -1,8 +1,7 @@
 import { Field, ID, ObjectType } from "type-graphql";
 
+import Stock from "@protocols/stock";
 import { prop as Property, getModelForClass } from "@typegoose/typegoose";
-
-import Stock from "./stock";
 
 @ObjectType()
 export default class StocksImport {

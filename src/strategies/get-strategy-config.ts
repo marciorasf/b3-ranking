@@ -1,7 +1,7 @@
-import { Strategy, StrategyName } from "../types/strategy";
-import bazin from "./bazin";
-import marciorasf from "./marciorasf";
-import onlyEbit from "./only-ebit";
+import { Strategy, StrategyName } from "@protocols/strategy";
+import bazin from "@strategies/bazin";
+import marciorasf from "@strategies/marciorasf";
+import onlyEbit from "@strategies/only-ebit";
 
 const strategies: Record<StrategyName, Strategy> = {
   marciorasf,

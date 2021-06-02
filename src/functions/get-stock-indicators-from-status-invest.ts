@@ -1,7 +1,7 @@
 import axios from "axios";
 import cheerio from "cheerio";
 
-import StockIndicators, { Indicator } from "../types/stock-indicators";
+import StockIndicators, { Indicator } from "@protocols/stock-indicators";
 
 interface ValueNodeChildren {
   data: any;

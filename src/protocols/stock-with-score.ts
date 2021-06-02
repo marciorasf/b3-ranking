@@ -1,6 +1,6 @@
 import { Field, ObjectType } from "type-graphql";
 
-import Stock from "./stock";
+import Stock from "@protocols/stock";
 
 @ObjectType()
 export default class StockWithScore extends Stock {

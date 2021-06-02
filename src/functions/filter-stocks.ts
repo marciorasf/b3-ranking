@@ -1,5 +1,5 @@
-import Stock from "../types/stock";
-import { Indicator } from "../types/stock-indicators";
+import Stock from "@protocols/stock";
+import { Indicator } from "@protocols/stock-indicators";
 
 type FilterOptions = {
   min?: number;

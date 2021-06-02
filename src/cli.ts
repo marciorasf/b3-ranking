@@ -1,16 +1,14 @@
 #!/usr/bin/env node
-
-import "./config/mongo";
+import "@config/mongo";
 import Table from "cli-table";
 import program from "commander";
 
-import packageJson from "../package.json";
-import filterSameEnterpriseStocks from "./functions/filter-same-enterprise-stocks";
-import getLastImport from "./functions/get-last-import";
-import importStocks from "./functions/import-stocks";
-import runRankingStrategy from "./functions/run-strategy-ranking";
-import { StockWithPosition } from "./types/find-stocks";
-import StockWithScore from "./types/stock-with-score";
+import filterSameEnterpriseStocks from "@functions/filter-same-enterprise-stocks";
+import getLastImport from "@functions/get-last-import";
+import importStocks from "@functions/import-stocks";
+import runRankingStrategy from "@functions/run-strategy-ranking";
+import { StockWithPosition } from "@protocols/find-stocks";
+import StockWithScore from "@protocols/stock-with-score";
 
 function showListStocksTable(stocks: StockWithScore[]) {
   const table = new Table({
@@ -31,8 +29,6 @@ function showFindStocksTable(stocks: StockWithPosition[]) {
   stocks.map((stock) => table.push([stock.code, stock.position]));
   console.log(table.toString());
 }
-
-program.version(packageJson.version);
 
 program
   .command("import")

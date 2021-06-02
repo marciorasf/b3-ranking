@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
-import Stock from "../types/stock";
-import { Indicator } from "../types/stock-indicators";
-import StockWithRanking from "../types/stock-with-ranking";
+import Stock from "@protocols/stock";
+import { Indicator } from "@protocols/stock-indicators";
+import StockWithRanking from "@protocols/stock-with-ranking";
 
 type SortFunction = (_stocks: StockWithRanking[], _indicator: Indicator) => StockWithRanking[];
 

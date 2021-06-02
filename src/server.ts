@@ -4,9 +4,9 @@ import Express from "express";
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
 
-import { __port__ } from "./config/env";
-import "./config/mongo";
-import { StocksImportResolver } from "./resolvers/stock-import";
+import { __port__ } from "@config/env";
+import "@config/mongo";
+import { StocksImportResolver } from "@resolvers/stock-import";
 
 export default async function main() {
   const schema = await buildSchema({

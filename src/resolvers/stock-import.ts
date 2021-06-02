@@ -1,7 +1,7 @@
 import { Query, Resolver } from "type-graphql";
 
-import getLastImport from "../functions/get-last-import";
-import StocksImport from "../types/stocks-import";
+import getLastImport from "@functions/get-last-import";
+import StocksImport from "@protocols/stocks-import";
 
 @Resolver()
 export class StocksImportResolver {

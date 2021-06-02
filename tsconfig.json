@@ -26,7 +26,30 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "resolveJsonModule": true,
-    "baseUrl": "."
+    "baseUrl": "./src",
+    "paths": {
+      "@config/*": [
+        "./config/*"
+      ],
+      "@entities/*": [
+        "./entities/*"
+      ],
+      "@functions/*": [
+        "./functions/*"
+      ],
+      "@protocols/*": [
+        "./protocols/*"
+      ],
+      "@resolvers/*": [
+        "./resolvers/*"
+      ],
+      "@strategies/*": [
+        "./strategies/*"
+      ],
+      "@/*": [
+        "./*"
+      ]
+    }
   },
   "exclude": [
     "node_modules"
