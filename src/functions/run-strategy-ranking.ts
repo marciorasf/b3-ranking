@@ -1,9 +1,9 @@
-import getStrategyConfig from "@strategies/get-strategy-config";
-import Stock from "@protocols/stock";
-import { StrategyName } from "@protocols/strategy";
 import calculateScores from "@functions/calculate-scores";
 import filterStocks from "@functions/filter-stocks";
 import sortStocksWithScores from "@functions/sort-stocks-with-scores";
+import Stock from "@protocols/stock";
+import { StrategyName } from "@protocols/strategy";
+import getStrategyConfig from "@strategies/get-strategy-config";
 
 export default function runStrategy(
   stocks: Stock[],

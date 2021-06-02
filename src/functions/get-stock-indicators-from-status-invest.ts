@@ -32,9 +32,9 @@ function getIndicatorsNodes(html: string) {
   const indicatorsSection = $(".indicator-today-container .d-flex.flex-wrap").html() as string;
   cheerio.load(indicatorsSection);
 
-  const valuesNodes = ($(
+  const valuesNodes = $(
     "strong.value.d-block.lh-4.fs-4.fw-700"
-  ).toArray() as unknown) as ValueNode[];
+  ).toArray() as unknown as ValueNode[];
 
   return valuesNodes;
 }

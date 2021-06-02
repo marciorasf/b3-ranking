@@ -1,9 +1,9 @@
 /* eslint-disable no-param-reassign */
+import calculateRanking from "@functions/calculate-ranking";
+import filterStocks, { Filters } from "@functions/filter-stocks";
 import Stock from "@protocols/stock";
 import { Indicator } from "@protocols/stock-indicators";
 import StockWithScore from "@protocols/stock-with-score";
-import calculateRanking from "@functions/calculate-ranking";
-import filterStocks, { Filters } from "@functions/filter-stocks";
 
 export type IndicatorsWeights = Partial<Record<Indicator, number>>;
 

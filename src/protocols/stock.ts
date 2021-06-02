@@ -1,8 +1,7 @@
 import { Field, ObjectType } from "type-graphql";
 
-import { prop as Property } from "@typegoose/typegoose";
-
 import StockIndicators from "@protocols/stock-indicators";
+import { prop as Property } from "@typegoose/typegoose";
 
 @ObjectType()
 export default class Stock {
