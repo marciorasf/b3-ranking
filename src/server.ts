@@ -8,7 +8,7 @@ import { __port__ } from "@config/env";
 import "@config/mongo";
 import { StocksImportResolver } from "@resolvers/stock-import";
 
-export default async function main() {
+async function main() {
   const schema = await buildSchema({
     resolvers: [StocksImportResolver],
     emitSchemaFile: true,
@@ -32,3 +32,5 @@ export default async function main() {
     console.log(`🚀 Server listening on port ${__port__}`);
   });
 }
+
+main();

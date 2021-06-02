@@ -6,9 +6,9 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
-    "dev": "nodemon dist/src/index",
     "lint": "yarn eslint src/ --fix",
-    "start": "node -r module-alias/register dist/index",
+    "dev": "nodemon dist/server",
+    "start": "node -r module-alias/register dist/server",
     "cli": "node -r module-alias/register dist/cli"
   },
   "dependencies": {
