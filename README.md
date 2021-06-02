@@ -41,7 +41,7 @@ yarn
 
 Clone .env.example as .env
 
-## Using **B3 Magical Formula**
+## Using B3 Magical Formula
 
 ### Setup
 
