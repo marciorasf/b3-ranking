@@ -10,7 +10,8 @@
     "dev": "nodemon dist/src/index",
     "start": "node dist/src/index",
     "lint": "yarn eslint src/ --fix",
-    "cli": "node dist/src/cli.js"
+    "cli": "node dist/src/cli.js",
+    "find": "yarn cli find -s marciorasf --stocks 'tiet11, alup11, cgra4, cmin3, cple6, csmg3, cyre3, egie3, enbr3, even3, goau4, itsa4, jbss3, jhsf3, mtsa4, pcar3, rapt3, sapr3, sapr4, sqia3, taee11, trpl4, whrl4, wizs3'"
   },
   "dependencies": {
     "@typegoose/typegoose": "^7.4.8",

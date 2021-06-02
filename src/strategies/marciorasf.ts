@@ -12,12 +12,15 @@ const marciorasf: Strategy = {
     roic: {
       min: 0,
     },
-    divida_liquida_por_ebit: {
-      max: 3,
+    roe: {
+      min: 0,
     },
-    divida_liquida_por_patrimonio_liquido: {
-      max: 1,
-    },
+    // divida_liquida_por_ebit: {
+    //   max: 4.5,
+    // },
+    // divida_liquida_por_patrimonio_liquido: {
+    //   max: 1.5,
+    // },
   },
   rankingWeights: {
     enterprise_value_por_ebit: 1,
