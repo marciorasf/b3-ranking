@@ -8,8 +8,8 @@
     "watch": "tsc -w",
     "dev": "nodemon dist/src/index",
     "lint": "yarn eslint src/ --fix",
-    "start": "node -r module-alias/register dist/src/index",
-    "cli": "node -r module-alias/register dist/src/cli"
+    "start": "node -r module-alias/register dist/index",
+    "cli": "node -r module-alias/register dist/cli"
   },
   "dependencies": {
     "@typegoose/typegoose": "^7.4.8",
