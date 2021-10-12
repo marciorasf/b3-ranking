@@ -3,12 +3,12 @@ import Table from "cli-table";
 import program from "commander";
 
 import "@/mongo";
-import filterSameEnterpriseStocks from "@functions/filter-same-enterprise-stocks";
-import getLastImport from "@functions/get-last-import";
-import importStocks from "@functions/import-stocks";
-import runRankingStrategy from "@functions/run-strategy-ranking";
-import { StockWithPosition } from "@protocols/find-stocks";
-import StockWithScore from "@protocols/stock-with-score";
+import filterSameEnterpriseStocks from "@/domain/functions/filter-same-enterprise-stocks";
+import getLastImport from "@/domain/functions/get-last-import";
+import importStocks from "@/domain/functions/import-stocks";
+import runRankingStrategy from "@/domain/functions/run-strategy-ranking";
+import { StockWithPosition } from "@/domain/protocols/find-stocks";
+import StockWithScore from "@/domain/protocols/stock-with-score";
 
 function showListStocksTable(stocks: StockWithScore[]) {
   const table = new Table({
@@ -49,9 +49,9 @@ program
       return;
     }
 
-    const errors = lastImport.importErrors
+    const errors = lastImport.importErrors;
 
-    console.log(errors)
+    console.log(errors);
 
     process.exit();
   });

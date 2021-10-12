@@ -1,8 +1,8 @@
 /* eslint-disable no-await-in-loop */
-import { StocksImportModel } from "@entities/stocks-import";
-import getStockIndicatorsFromStatusInvest from "@functions/get-stock-indicators-from-status-invest";
-import getStocksCodes from "@functions/get-stocks-codes";
-import Stock from "@protocols/stock";
+import { StocksImportModel } from "@/domain/entities/stocks-import";
+import getStockIndicatorsFromStatusInvest from "@/domain/functions/get-stock-indicators-from-status-invest";
+import getStocksCodes from "@/domain/functions/get-stocks-codes";
+import Stock from "@/domain/protocols/stock";
 
 const IMPORT_FOLD_LENGTH = 20;
 

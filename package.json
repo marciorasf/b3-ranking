@@ -7,8 +7,6 @@
     "build": "tsc",
     "watch": "tsc -w",
     "lint": "yarn eslint src/ --fix",
-    "dev": "nodemon dist/server",
-    "start": "node -r module-alias/register dist/server",
     "cli": "node -r module-alias/register dist/cli"
   },
   "dependencies": {

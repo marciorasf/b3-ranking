@@ -1,9 +1,9 @@
-import calculateScores from "@functions/calculate-scores";
-import filterStocks from "@functions/filter-stocks";
-import sortStocksWithScores from "@functions/sort-stocks-with-scores";
-import Stock from "@protocols/stock";
-import { StrategyName } from "@protocols/strategy";
-import getStrategyConfig from "@strategies/get-strategy-config";
+import calculateScores from "@/domain/functions/calculate-scores";
+import filterStocks from "@/domain/functions/filter-stocks";
+import sortStocksWithScores from "@/domain/functions/sort-stocks-with-scores";
+import Stock from "@/domain/protocols/stock";
+import { StrategyName } from "@/domain/protocols/strategy";
+import getStrategyConfig from "@/domain/strategies/get-strategy-config";
 
 export default function runStrategy(stocks: Stock[], strategy: StrategyName, useFilters = true) {
   const strategyConfig = getStrategyConfig(strategy);
