@@ -27,6 +27,7 @@ services:
       - 3000:3000
     environment:
       MONGO_URI: mongodb://mongo:27017
+      NODE_ENV: development
 
 volumes:
   stocks-sort-vol:
