@@ -3,12 +3,14 @@ import cors from "cors";
 import express from "express";
 
 import "@/mongo";
+import "@/cron";
 import { PORT } from "@config/env";
 import filterSameEnterpriseStocks from "@domain/functions/filter-same-enterprise-stocks";
 import getLastImport from "@domain/functions/get-last-import";
 import runRankingStrategy from "@domain/functions/run-strategy-ranking";
 import { StockWithPosition } from "@domain/protocols/find-stocks";
 import { StrategyName } from "@domain/protocols/strategy";
+import importStocks from "@domain/functions/import-stocks";
 
 const app = express();
 
@@ -21,9 +23,14 @@ app.get("/", function (_req, res) {
   res.send("<h2>Hello from B3-Magical-Formula</h2>");
 });
 
+app.post("/import", function (_req, res) {
+  importStocks();
+  res.sendStatus(204);
+});
+
 app.get("/last-import", async function (_req, res) {
   const lastImport = await getLastImport();
-  res.json(lastImport);
+  res.status(200).json(lastImport);
 });
 
 app.post("/ranking", async function (req, res) {
@@ -60,7 +67,7 @@ app.post("/ranking", async function (req, res) {
     score: stock.score,
   }));
 
-  res.json(rankedStocks);
+  res.status(200).json(rankedStocks);
 });
 
 app.post("/find", async function (req, res) {
@@ -91,7 +98,7 @@ app.post("/find", async function (req, res) {
     (stockA, stockB) => stockA.position - stockB.position
   );
 
-  res.json(sortedStocksWithPositions);
+  res.status(200).json(sortedStocksWithPositions);
 });
 
 app.listen(PORT, () => {
