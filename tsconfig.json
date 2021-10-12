@@ -40,9 +40,6 @@
       "@protocols/*": [
         "./protocols/*"
       ],
-      "@resolvers/*": [
-        "./resolvers/*"
-      ],
       "@strategies/*": [
         "./strategies/*"
       ],
