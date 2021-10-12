@@ -21,6 +21,7 @@ export default async function importStocks() {
   for (let foldIndex = 0; foldIndex < nFolds; foldIndex += 1) {
     const foldStocks = availableStocks.slice(startIndex, endIndex);
 
+    console.info("Start importing stocks' indicators.");
     await Promise.all(
       foldStocks.map(async (stock) => {
         try {
@@ -30,13 +31,13 @@ export default async function importStocks() {
             indicatorsValues: indicators,
           });
         } catch (err) {
-          console.log(err.message);
+          console.warn(err.message);
           importErrors.push(stock);
         }
       })
     );
 
-    console.log(`${endIndex}/${nStocks}`);
+    console.info(`Progress: ${endIndex}/${nStocks}`);
     startIndex += sliceLength;
     endIndex = foldIndex === nFolds - 2 ? nStocks : endIndex + sliceLength;
   }

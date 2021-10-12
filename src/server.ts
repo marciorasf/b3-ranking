@@ -102,7 +102,7 @@ app.post("/find", async function (req, res) {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server started on port: ${PORT}`);
+  console.info(`Server started on port: ${PORT}`);
 });
 
 // Exit on docker stop
