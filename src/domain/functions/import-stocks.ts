@@ -18,10 +18,10 @@ export default async function importStocks() {
   let startIndex = 0;
   let endIndex = nFolds === 1 ? nStocks : sliceLength;
 
+  console.info("Start importing stocks' indicators.");
   for (let foldIndex = 0; foldIndex < nFolds; foldIndex += 1) {
     const foldStocks = availableStocks.slice(startIndex, endIndex);
 
-    console.info("Start importing stocks' indicators.");
     await Promise.all(
       foldStocks.map(async (stock) => {
         try {
