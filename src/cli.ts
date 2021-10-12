@@ -75,7 +75,7 @@ program
 
       const { stocks } = lastImport;
 
-      let sortedStocks = runRankingStrategy(stocks, strategy || "custom");
+      let sortedStocks = runRankingStrategy(stocks, strategy || "greenblatt");
 
       if (filterStocks) {
         sortedStocks = filterSameEnterpriseStocks(sortedStocks);
