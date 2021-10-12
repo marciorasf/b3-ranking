@@ -6,7 +6,7 @@ import runStrategyRanking from "@domain/functions/run-strategy-ranking";
 import { StockWithPosition } from "@domain/protocols/find-stocks";
 import { StrategyName } from "@domain/protocols/strategy";
 
-export default async function ranking(req: Request, res: Response): Promise<void> {
+export default async function find(req: Request, res: Response): Promise<void> {
   type Options = {
     strategy: StrategyName;
   };
