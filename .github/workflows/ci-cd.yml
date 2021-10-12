@@ -1,0 +1,91 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  check-tsc:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Build typescript
+        run: yarn build
+
+  build-and-deploy-image:
+    needs: [check-tsc]
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Docker Login
+        uses: docker/login-action@v1.9.0
+        with:
+          username: ${{secrets.DOCKERHUB_USERNAME}}
+          password: ${{secrets.DOCKERHUB_PASSWORD}}
+          logout: true
+
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v2.4.0
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: |
+            ${{secrets.DOCKERHUB_USERNAME}}/b3-magical-formula:${{ github.run_id }}
+            ${{secrets.DOCKERHUB_USERNAME}}/b3-magical-formula:latest
+          github-token: ${{ github.token }}
+
+  deploy-caprover:
+    needs: [build-and-deploy-image]
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: caprover-releases
+
+    - name: Set captain-definition new image
+      uses: jossef/action-set-json-field@v1
+      with:
+        file: captain-definition
+        field: imageName
+        value: ${{secrets.DOCKERHUB_USERNAME}}/b3-magical-formula:${{ github.run_id }}
+
+    - name: Git Auto Commit
+      uses: stefanzweifel/git-auto-commit-action@v4.11.0
+      with:
+        commit_message: update image tag to ${{ github.run_id }}
+        branch: caprover-releases
+        push_options: --force
+
+  run-migrations:
+    needs: [build-and-deploy-image]
+
+    runs-on: ubuntu-latest
+
+    steps:
+    -  uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: yarn
+
+    - name: Run migrations on DB
+      env:
+        POSTGRES_HOST: ${{secrets.POSTGRES_HOST}}
+        POSTGRES_PORT: ${{secrets.POSTGRES_PORT}}
+        POSTGRES_DATABASE: ${{secrets.POSTGRES_DATABASE}}
+        POSTGRES_USERNAME: ${{secrets.POSTGRES_USERNAME}}
+        POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
+        POSTGRES_SCHEMA: ${{secrets.POSTGRES_SCHEMA}}
+      run: yarn typeorm migration:run
