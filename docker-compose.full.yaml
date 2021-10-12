@@ -9,6 +9,8 @@ services:
       ME_CONFIG_MONGODB_PORT: 27017
     links:
       - mongo
+    logging:
+      driver: none
 
   mongo:
     image: mongo:4.4
@@ -16,6 +18,15 @@ services:
       - 27017:27017
     volumes:
       - stocks-sort-vol:/data/db
+    logging:
+      driver: none
+
+  b3:
+    build: .
+    ports:
+      - 3000:3000
+    environment:
+      MONGO_URI: mongodb://mongo:27017
 
 volumes:
   stocks-sort-vol:
