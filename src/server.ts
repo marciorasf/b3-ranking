@@ -7,6 +7,7 @@ import { PORT } from "@config/env";
 import filterSameEnterpriseStocks from "@domain/functions/filter-same-enterprise-stocks";
 import getLastImport from "@domain/functions/get-last-import";
 import runRankingStrategy from "@domain/functions/run-strategy-ranking";
+import { StockWithPosition } from "@domain/protocols/find-stocks";
 import { StrategyName } from "@domain/protocols/strategy";
 
 const app = express();
@@ -26,24 +27,21 @@ app.get("/last-import", async function (_req, res) {
 });
 
 app.post("/ranking", async function (req, res) {
-  type RankingOptions = {
+  type Options = {
     strategy: StrategyName;
     filterStocks: boolean;
     numberOfStocks?: number;
   };
-
-  const options: RankingOptions = {
+  const options: Options = {
     strategy: req.body.strategy || "greenblat",
     filterStocks: req.body.filter_same_enterprise_stocks || false,
     numberOfStocks: req.body.number_of_stocks,
   };
 
   const lastImport = await getLastImport();
-
   if (!lastImport) {
     return;
   }
-
   const { stocks } = lastImport;
 
   let sortedStocks = runRankingStrategy(stocks, options.strategy);
@@ -63,6 +61,37 @@ app.post("/ranking", async function (req, res) {
   }));
 
   res.json(rankedStocks);
+});
+
+app.post("/find", async function (req, res) {
+  type Options = {
+    strategy: StrategyName;
+  };
+  const options: Options = {
+    strategy: req.body.strategy || "greenblat",
+  };
+  const stockCodes = req.body.stocks;
+
+  const lastImport = await getLastImport();
+  if (!lastImport) {
+    return;
+  }
+  const { stocks } = lastImport;
+
+  let sortedStocks = runRankingStrategy(stocks, options.strategy);
+
+  sortedStocks = filterSameEnterpriseStocks(sortedStocks);
+
+  const stocksWithPosition = stockCodes.map((code: string) => {
+    const position = sortedStocks.findIndex((stock) => stock.code.slice(0, 4) === code);
+    return { code, position };
+  }) as StockWithPosition[];
+
+  const sortedStocksWithPositions = stocksWithPosition.sort(
+    (stockA, stockB) => stockA.position - stockB.position
+  );
+
+  res.json(sortedStocksWithPositions);
 });
 
 app.listen(PORT, () => {
