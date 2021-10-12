@@ -7,10 +7,10 @@ import "@/cron";
 import { PORT } from "@config/env";
 import filterSameEnterpriseStocks from "@domain/functions/filter-same-enterprise-stocks";
 import getLastImport from "@domain/functions/get-last-import";
+import importStocks from "@domain/functions/import-stocks";
 import runRankingStrategy from "@domain/functions/run-strategy-ranking";
 import { StockWithPosition } from "@domain/protocols/find-stocks";
 import { StrategyName } from "@domain/protocols/strategy";
-import importStocks from "@domain/functions/import-stocks";
 
 const app = express();
 
@@ -18,10 +18,6 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-app.get("/", function (_req, res) {
-  res.send("<h2>Hello from B3-Magical-Formula</h2>");
-});
 
 app.post("/import", function (_req, res) {
   importStocks();
@@ -99,6 +95,10 @@ app.post("/find", async function (req, res) {
   );
 
   res.status(200).json(sortedStocksWithPositions);
+});
+
+app.get("*", function (_req, res) {
+  res.send("<h2>Hello from B3-Magical-Formula</h2>");
 });
 
 app.listen(PORT, () => {
