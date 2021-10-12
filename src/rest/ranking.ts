@@ -4,6 +4,7 @@ import filterSameEnterpriseStocks from "@domain/functions/filter-same-enterprise
 import getLastImport from "@domain/functions/get-last-import";
 import runStrategyRanking from "@domain/functions/run-strategy-ranking";
 import { StrategyName } from "@domain/protocols/strategy";
+import { StockWithPosition } from "@domain/protocols/find-stocks";
 
 export default async function ranking(req: Request, res: Response): Promise<void> {
   type Options = {
@@ -36,8 +37,7 @@ export default async function ranking(req: Request, res: Response): Promise<void
   const rankedStocks = sortedStocks.map((stock, index) => ({
     code: stock.code,
     position: index + 1,
-    score: stock.score,
-  }));
+  })) as StockWithPosition[];
 
   res.status(200).json(rankedStocks);
 }
