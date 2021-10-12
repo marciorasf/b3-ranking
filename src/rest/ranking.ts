@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 
 import filterSameEnterpriseStocks from "@domain/functions/filter-same-enterprise-stocks";
 import getLastImport from "@domain/functions/get-last-import";
-import runRankingStrategy from "@domain/functions/run-strategy-ranking";
+import runStrategyRanking from "@domain/functions/run-strategy-ranking";
 import { StrategyName } from "@domain/protocols/strategy";
 
 export default async function ranking(req: Request, res: Response): Promise<void> {
@@ -23,7 +23,7 @@ export default async function ranking(req: Request, res: Response): Promise<void
   }
   const { stocks } = lastImport;
 
-  let sortedStocks = runRankingStrategy(stocks, options.strategy);
+  let sortedStocks = runStrategyRanking(stocks, options.strategy);
 
   if (options.filterStocks) {
     sortedStocks = filterSameEnterpriseStocks(sortedStocks);

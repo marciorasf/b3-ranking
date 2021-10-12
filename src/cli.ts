@@ -6,7 +6,7 @@ import "@/mongo";
 import filterSameEnterpriseStocks from "@domain/functions/filter-same-enterprise-stocks";
 import getLastImport from "@domain/functions/get-last-import";
 import importStocks from "@domain/functions/import-stocks";
-import runRankingStrategy from "@domain/functions/run-strategy-ranking";
+import runStrategyRanking from "@domain/functions/run-strategy-ranking";
 import { StockWithPosition } from "@domain/protocols/find-stocks";
 import StockWithScore from "@domain/protocols/stock-with-score";
 
@@ -75,7 +75,7 @@ program
 
       const { stocks } = lastImport;
 
-      let sortedStocks = runRankingStrategy(stocks, strategy || "greenblatt");
+      let sortedStocks = runStrategyRanking(stocks, strategy || "greenblatt");
 
       if (filterStocks) {
         sortedStocks = filterSameEnterpriseStocks(sortedStocks);
@@ -112,7 +112,7 @@ program
 
       const { stocks } = lastImport;
 
-      let sortedStocks = runRankingStrategy(stocks, strategy || "custom");
+      let sortedStocks = runStrategyRanking(stocks, strategy || "custom");
 
       sortedStocks = filterSameEnterpriseStocks(sortedStocks);
 
