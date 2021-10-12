@@ -1,4 +1,4 @@
-import { Strategy } from "@/domain/protocols/strategy";
+import { Strategy } from "@domain/protocols/strategy";
 
 const bazin: Strategy = {
   filters: {

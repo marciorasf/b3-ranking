@@ -31,17 +31,8 @@
       "@config/*": [
         "./config/*"
       ],
-      "@entities/*": [
-        "./entities/*"
-      ],
-      "@functions/*": [
-        "./functions/*"
-      ],
-      "@protocols/*": [
-        "./protocols/*"
-      ],
-      "@strategies/*": [
-        "./strategies/*"
+      "@domain/*": [
+        "./domain/*"
       ],
       "@/*": [
         "./*"

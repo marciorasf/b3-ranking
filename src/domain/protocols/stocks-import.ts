@@ -1,4 +1,4 @@
-import Stock from "@/domain/protocols/stock";
+import Stock from "@domain/protocols/stock";
 import { prop as Property, getModelForClass } from "@typegoose/typegoose";
 
 export default class StocksImport {

@@ -1,4 +1,4 @@
-import StockWithScore from "@/domain/protocols/stock-with-score";
+import StockWithScore from "@domain/protocols/stock-with-score";
 
 export default function filterSameEnterpriseStocks(sortedStocks: StockWithScore[]) {
   const alreadyIncludedStocks = new Set();

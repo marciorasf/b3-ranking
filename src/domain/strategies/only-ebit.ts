@@ -1,4 +1,4 @@
-import { Strategy } from "@/domain/protocols/strategy";
+import { Strategy } from "@domain/protocols/strategy";
 
 const onlyEbit: Strategy = {
   filters: {
