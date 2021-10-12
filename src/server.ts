@@ -22,6 +22,8 @@ app.post("/ranking", handlers.ranking);
 
 app.post("/find", handlers.find);
 
+app.get("/strategies", handlers.strategies);
+
 app.get("*", function (_req, res) {
   res.send("<h2>Hello from B3-Magical-Formula</h2>");
 });
