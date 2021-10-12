@@ -18,6 +18,7 @@ WORKDIR /usr/app
 
 COPY package.json .
 COPY yarn.lock .
+COPY resources .
 COPY --from=0 /usr/app/dist/ /usr/app/dist/
 
 RUN yarn --prod
