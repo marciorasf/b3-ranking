@@ -68,24 +68,3 @@ jobs:
         commit_message: update image tag to ${{ github.run_id }}
         branch: caprover-releases
         push_options: --force
-
-  run-migrations:
-    needs: [build-and-deploy-image]
-
-    runs-on: ubuntu-latest
-
-    steps:
-    -  uses: actions/checkout@v2
-
-    - name: Install dependencies
-      run: yarn
-
-    - name: Run migrations on DB
-      env:
-        POSTGRES_HOST: ${{secrets.POSTGRES_HOST}}
-        POSTGRES_PORT: ${{secrets.POSTGRES_PORT}}
-        POSTGRES_DATABASE: ${{secrets.POSTGRES_DATABASE}}
-        POSTGRES_USERNAME: ${{secrets.POSTGRES_USERNAME}}
-        POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
-        POSTGRES_SCHEMA: ${{secrets.POSTGRES_SCHEMA}}
-      run: yarn typeorm migration:run
