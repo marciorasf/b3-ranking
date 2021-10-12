@@ -4,4 +4,4 @@ dotenv.config();
 
 export const IS_DEV = process.env.NODE_ENV === "development";
 
-export const PORT = process.env.PORT || 3333;
+export const PORT = process.env.PORT || 3000;
