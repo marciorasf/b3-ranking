@@ -11,7 +11,7 @@ export default async function find(req: Request, res: Response): Promise<void> {
     strategy: StrategyName;
   };
   const options: Options = {
-    strategy: req.body.strategy || "greenblat",
+    strategy: req.body.strategy || "greenblatt",
   };
   const stockCodes = req.body.stocks;
 

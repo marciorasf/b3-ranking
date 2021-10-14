@@ -13,7 +13,7 @@ export default async function ranking(req: Request, res: Response): Promise<void
     numberOfStocks?: number;
   };
   const options: Options = {
-    strategy: req.body.strategy || "greenblat",
+    strategy: req.body.strategy || "greenblatt",
     filterStocks: req.body.filter_same_enterprise_stocks || false,
     numberOfStocks: req.body.number_of_stocks,
   };
