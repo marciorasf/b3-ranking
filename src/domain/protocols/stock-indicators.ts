@@ -2,6 +2,9 @@ import { prop as Property } from "@typegoose/typegoose";
 
 export default class StockIndicators {
   @Property()
+  preco_atual?: number;
+
+  @Property()
   liquidez_media_diaria?: number;
 
   @Property()

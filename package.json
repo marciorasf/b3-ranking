@@ -8,7 +8,7 @@
     "watch": "tsc -w",
     "lint": "yarn eslint src/ --fix",
     "cli": "node -r module-alias/register dist/cli",
-    "dev": "nodemon -r module-alias/register dist/server"
+    "dev": "NODE_ENV=development nodemon -r module-alias/register dist/server"
   },
   "dependencies": {
     "@typegoose/typegoose": "^7.4.8",

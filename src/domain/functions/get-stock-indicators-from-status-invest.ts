@@ -13,16 +13,20 @@ interface ValueNode {
 
 function formatStringValue(value: string) {
   const number = parseFloat(value.replace(/\./g, "").replace(",", ".").replace("%", ""));
-  return Number.isNaN(number) ? null : number;
+  return Number.isNaN(number) ? undefined : number;
+}
+
+function getPrecoAtual(html: string) {
+  const $ = cheerio.load(html);
+  const stock_price_string = $(".value").html();
+  const stock_price = formatStringValue(stock_price_string || "");
+  return stock_price;
 }
 
 function getLiquidezMediaDiaria(html: string) {
   const $ = cheerio.load(html);
-
   const liquidez_media_diaria_string = $(".card>.top-info>div:nth-child(3) strong.value").html();
-
   const liquidez_media_diaria = formatStringValue(liquidez_media_diaria_string || "");
-
   return liquidez_media_diaria;
 }
 
@@ -85,8 +89,10 @@ export default async function getStockIndicatorsFromStatusInvest(code: string) {
     throw Error("different lengths");
   }
 
+  const preco_atual = getPrecoAtual(html)
   const liquidez_media_diaria = getLiquidezMediaDiaria(html);
-  const indicators: any = {
+  const indicators: Partial<StockIndicators> = {
+    preco_atual,
     liquidez_media_diaria,
   };
 
