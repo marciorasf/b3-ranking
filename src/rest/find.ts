@@ -26,7 +26,8 @@ export default async function find(req: Request, res: Response): Promise<void> {
   sortedStocks = filterSameEnterpriseStocks(sortedStocks);
 
   const stocksWithPosition = stockCodes.map((code: string) => {
-    const position = sortedStocks.findIndex((stock) => stock.code.slice(0, 4) === code);
+    const index = sortedStocks.findIndex((stock) => stock.code.slice(0, 4) === code);
+    const position = index >= 0 ? index + 1 : -1
     return { code, position };
   }) as StockWithPosition[];
 
