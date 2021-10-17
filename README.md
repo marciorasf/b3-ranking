@@ -1,8 +1,8 @@
-# B3 Magical Formula
+# B3 Ranking
 
 This is a CLI tool that provides an easy way to get B3's stocks indicators, and rank them using an algorithm like the one written in the book: The Little Book That Beats The Market.
 
-The project is inspired by Joel Greenblatt's book: The Little Book That Beats The Market, translated to portuguese as something like "The Magical Formula To Beat The Market" (that's the reason of the name of this repo), and provides a simple way to get B3's stocks indicators and process your own stocks rankings.
+The project is inspired by Joel Greenblatt's book: The Little Book That Beats The Market, translated to portuguese as something like "The Magic Formula To Beats The Market" (that's the reason of the name of this repo), and provides a simple way to get B3's stocks indicators and process your own stocks rankings.
 
 First, I intended to make a program to only get the stocks and applies Greenblatt's strategy. But, I realize that it would be much more valuable if it provides a generic way to apply custom strategies to rank the stocks. So that was what I built.
 
@@ -14,34 +14,37 @@ Finally, it runs a ranking algorithm based on specified indicators and constrain
 
 ## Important notes
 
-* There's no guarantee that the indicators retrieved by this project or the ranking algorithms are correct.
-* The strategies are not investments recommendations.
-* The indicators names were written in portuguese to ease the verification of the indicators and maintenance.
+- There's no guarantee that the indicators retrieved by this project or the ranking algorithms are correct.
+- The strategies are not investments recommendations.
+- The indicators names were written in portuguese to ease the verification of the indicators and maintenance.
 
 ## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
-* You have installed Node.js version 12.22.0 or above.
-* You have Docker and DockerCompose installed.
-* You have yarn installed.
+
+- You have installed Node.js version 12.22.0 or above.
+- You have Docker and DockerCompose installed.
+- You have yarn installed.
 
 ## Installing
 
-To install **B3 Magical Formula**, follow these steps:
+To install **B3 Ranking**, follow these steps:
 
 Clone repo:
+
 ```
-git clone git@github.com:marciorasf/b3-magical-formula.git
+git clone git@github.com:marciorasf/b3-ranking.git
 ```
 
 Install dependencies:
+
 ```
 yarn
 ```
 
 Clone .env.example as .env
 
-## Using B3 Magical Formula
+## Using B3 Ranking
 
 ### Setup
 
@@ -59,9 +62,9 @@ To make changes on the **custom** strategy I highly recommend to use some editor
 
 There are more 3 strategies:
 
-* marciorasf: strategy used by the author
-* onlyEbit: uses only ev/evit to rank the stocks
-* bazin: based on Décio Bazin's strategy. This strategy can be found on the book "Faça Fortuna com Ações" (I think it doesn't have an english version).
+- marciorasf: strategy used by the author
+- onlyEbit: uses only ev/evit to rank the stocks
+- bazin: based on Décio Bazin's strategy. This strategy can be found on the book "Faça Fortuna com Ações" (I think it doesn't have an english version).
 
 ### Making Changes
 
@@ -88,6 +91,7 @@ To run it, execute:
 ```bash
 yarn cli import
 ```
+
 <br/>
 
 :warning: Sometimes occurs errors when importing some stocks. See the **errors** command below to learn how to check which stocks are not on the database.
@@ -160,18 +164,19 @@ If the position is **-1**, it means that the stock doesn't fit to the strategy c
 
 This command always return the position of the best code of the searched stock. So instead of providing **SAPR3** and **SAPR4**, you should pass only **SAPR**.
 
-``` bash
+```bash
 yarn cli find --stocks "SAPR, TAEE"
 ```
 
 As **list** command you can pass the strategy using `-s` option.
 
 ## Technologies used
-* TypeScript
-* MongoDB with mongoose and typegoose
-* Axios
-* Cheerio
-* Commander
+
+- TypeScript
+- MongoDB with mongoose and typegoose
+- Axios
+- Cheerio
+- Commander
 
 ## Next Steps
 
