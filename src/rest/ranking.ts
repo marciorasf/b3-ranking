@@ -9,12 +9,12 @@ import { StockWithPosition } from "@domain/protocols/find-stocks";
 export default async function ranking(req: Request, res: Response): Promise<void> {
   type Options = {
     strategy: StrategyName;
-    filterStocks: boolean;
+    filterSameEnterpriseStocks: boolean;
     numberOfStocks?: number;
   };
   const options: Options = {
     strategy: req.body.strategy || "greenblatt",
-    filterStocks: req.body.filter_same_enterprise_stocks || false,
+    filterSameEnterpriseStocks: req.body.filter_same_enterprise_stocks || false,
     numberOfStocks: req.body.number_of_stocks,
   };
 
@@ -26,7 +26,7 @@ export default async function ranking(req: Request, res: Response): Promise<void
 
   let sortedStocks = runStrategyRanking(stocks, options.strategy);
 
-  if (options.filterStocks) {
+  if (options.filterSameEnterpriseStocks) {
     sortedStocks = filterSameEnterpriseStocks(sortedStocks);
   }
 
