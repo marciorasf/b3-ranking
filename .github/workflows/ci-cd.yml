@@ -6,6 +6,9 @@ on:
 
   workflow_dispatch:
 
+env:
+  IMAGE_NAME: b3-ranking
+
 jobs:
   check-tsc:
     runs-on: ubuntu-latest
@@ -41,8 +44,8 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ${{secrets.DOCKERHUB_USERNAME}}/b3-magical-formula:${{ github.run_id }}
-            ${{secrets.DOCKERHUB_USERNAME}}/b3-magical-formula:latest
+            ${{secrets.DOCKERHUB_USERNAME}}/${{env.IMAGE_NAME}}:${{ github.run_id }}
+            ${{secrets.DOCKERHUB_USERNAME}}/${{env.IMAGE_NAME}}:latest
           github-token: ${{ github.token }}
 
   deploy-caprover:
@@ -60,7 +63,7 @@ jobs:
       with:
         file: captain-definition
         field: imageName
-        value: ${{secrets.DOCKERHUB_USERNAME}}/b3-magical-formula:${{ github.run_id }}
+        value: ${{secrets.DOCKERHUB_USERNAME}}/${{env.IMAGE_NAME}}:${{ github.run_id }}
 
     - name: Git Auto Commit
       uses: stefanzweifel/git-auto-commit-action@v4.11.0
