@@ -178,12 +178,20 @@ As **list** command you can pass the strategy using `-s` option.
 - Cheerio
 - Commander
 
-## Next Steps
+## REST API
 
-I intend to add a GraphQL API, so the data can be consumed by a client.
+I implemented a REST API using the core of the project. I also implemented a simple front-end that consumes from this server, check it at [B3 Ranking](https://b3-ranking.marciorasf.space).
 
-On this client I also intend to provide the users the possibility to specify their strategies
+To run it, execute:
 
-## Contact
+```bash
+yarn dev
+```
 
-If you want to contact me you can reach me at marciorasf@gmail.com.
+> You must have the Mongo running before running the server.
+
+You can also run the server with the mongo with:
+
+```bash
+docker-compose -f docker-compose.full.yaml up
+```
