@@ -1,7 +1,7 @@
 {
-  "name": "server",
+  "name": "b3-ranking",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "license": "MIT",
   "scripts": {
     "build": "tsc",
