@@ -5,7 +5,7 @@ import express, { Express } from "express";
 import "@/mongo";
 import "@/cron";
 import { PORT } from "@config/env";
-import handlers from "@/rest";
+import handlers from "@/REST";
 
 const app = setupRoutes(addMiddlewares(express()))
 
