@@ -31,7 +31,7 @@ export default async function importStocks() {
             indicatorsValues: indicators,
           });
         } catch (err) {
-          console.warn(err.message);
+          console.warn(`Error fetching ${stock}: ${err.message}`);
           importErrors.push(stock);
         }
       })
