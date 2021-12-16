@@ -49,5 +49,6 @@ export default async function importStocks() {
 
   console.info("Finished importing stocks' indicators.");
 
+  console.log(newStocksImport)
   await newStocksImport.save();
 }
